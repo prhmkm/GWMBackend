@@ -13,7 +13,12 @@ namespace GWMBackend.Domain.DTOs
             public int CustomerId { get; set; }
             public DateTime PickupDate { get; set; }
             public string BucketAmont { get; set; } 
-            public int ProductsId { get; set; }
+            public List<Products>? Products { get; set; }
+        }
+        public class Products
+        {
+            public int Id { get; set; }
+            public int Quantity { get; set; }
         }
 
     }

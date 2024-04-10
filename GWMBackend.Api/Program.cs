@@ -1,14 +1,14 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
 using GWMBackend.Core.Helpers;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using GWMBackend.Core.Model.Base;
 using GWMBackend.Data.Base;
+using GWMBackend.Domain.Models;
 using GWMBackend.Service.Base;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System.Net;
 using System.Text;
-using Microsoft.IdentityModel.Tokens;
-using GWMBackend.Domain.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 

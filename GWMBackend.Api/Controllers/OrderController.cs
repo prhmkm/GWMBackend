@@ -12,7 +12,7 @@ using static GWMBackend.Domain.DTOs.OrderDTO;
 namespace GWMBackend.Api.Controllers
 {
     [Authorize]
-    [Route("api/staff/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class OrderController : Controller
     {
@@ -65,17 +65,17 @@ namespace GWMBackend.Api.Controllers
                     });
                 }
 
-                if (order.ProductsId == 0 || order.ProductsId == null)
-                {
-                    return BadRequest(new
-                    {
-                        TimeStamp = DateTime.Now,
-                        ResponseCode = HttpStatusCode.BadRequest,
-                        Message = "Products Id is not valid",
-                        Data = new { },
-                        Error = new { ErrorMsg = ModelState }
-                    });
-                }
+                //if (order.ProductsId == 0 || order.ProductsId == null)
+                //{
+                //    return BadRequest(new
+                //    {
+                //        TimeStamp = DateTime.Now,
+                //        ResponseCode = HttpStatusCode.BadRequest,
+                //        Message = "Products Id is not valid",
+                //        Data = new { },
+                //        Error = new { ErrorMsg = ModelState }
+                //    });
+                //}
                 var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
 
                 var res = new Domain.Models.Order()
@@ -83,7 +83,7 @@ namespace GWMBackend.Api.Controllers
                     CustomerId = Convert.ToInt32(userId),
                     BucketAmont = order.BucketAmont,
                     PickupDate = order.PickupDate,
-                    ProductsId = order.ProductsId,
+                    //ProductsId = order.ProductsId,
                 };
 
                 _service.order.AddOrder(res);

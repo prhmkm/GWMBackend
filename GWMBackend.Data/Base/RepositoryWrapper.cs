@@ -19,6 +19,8 @@ namespace GWMBackend.Data.Base
 
         public IOrderRepository order => new OrderRepository(_repoContext);
 
+        public IProductRepository product => new ProductRepository(_repoContext);
+
         public void Save()
         {
             _repoContext.SaveChanges();

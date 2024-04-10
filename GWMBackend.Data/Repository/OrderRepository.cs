@@ -43,7 +43,7 @@ namespace GWMBackend.Data.Repository
                 CreationDatetime = r.CreationDatetime,
                 CustomerId = r.CustomerId,
                 PickupDate = r.PickupDate,
-                ProductsId = r.ProductsId,
+                //ProductsId = r.ProductsId,
             }).ToList();
 
         }

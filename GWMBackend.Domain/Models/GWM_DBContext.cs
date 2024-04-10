@@ -73,6 +73,13 @@ namespace GWMBackend.Domain.Models
                     .IsFixedLength();
             });
 
+            modelBuilder.Entity<ShopItem>(entity =>
+            {
+                entity.Property(e => e.CreationDatetime)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+            });
+
             OnModelCreatingPartial(modelBuilder);
         }
 

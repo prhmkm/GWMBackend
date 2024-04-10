@@ -14,7 +14,7 @@ using static GWMBackend.Domain.DTOs.EmailDTO;
 namespace GWMBackend.Api.Controllers
 {
     [Authorize]
-    [Route("api/staff/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class EmailController : Controller
     {
@@ -69,13 +69,21 @@ namespace GWMBackend.Api.Controllers
                     _service.email.Edit(res);
 
                     _service.emailSmtpService.SendEmail(res, code);
+                    return Ok(new
+                    {
+                        TimeStamp = DateTime.Now,
+                        ResponseCode = HttpStatusCode.OK,
+                        Message = "Your verification code was sent successfully!",
+                        Data = new { res.Id },
+                        Error = new { }
+                    });
                 }
 
                 return Ok(new
                 {
                     TimeStamp = DateTime.Now,
-                    ResponseCode = HttpStatusCode.OK,
-                    Message = (res != null ? "Your verification code was sent successfully!" : "The Email is not verified"),
+                    ResponseCode = HttpStatusCode.BadRequest,
+                    Message = "The Email is not valid",
                     Data = new { },
                     Error = new { }
                 });

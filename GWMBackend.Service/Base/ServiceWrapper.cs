@@ -25,6 +25,8 @@ namespace GWMBackend.Service.Base
 
         public IEmailSmtpService emailSmtpService => new EmailSmtpService(_appSettings);
 
+        public IProductService product => new ProductService(_repository);
+
         public void Save()
         {
             _repository.Save();

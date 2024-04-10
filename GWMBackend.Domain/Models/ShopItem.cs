@@ -9,5 +9,6 @@ namespace GWMBackend.Domain.Models
         public int OrderId { get; set; }
         public int ProductId { get; set; }
         public int Amont { get; set; }
+        public DateTime CreationDatetime { get; set; }
     }
 }
