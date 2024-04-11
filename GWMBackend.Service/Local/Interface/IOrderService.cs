@@ -9,7 +9,7 @@ namespace GWMBackend.Service.Local.Interface
 {
     public interface IOrderService
     {
-        void AddOrder(Order order);
+        int AddOrder(Order order);
         List<Order> GetAllOrders();
         Order GetOrderById(int id);
         void DeleteOrderById(int id);

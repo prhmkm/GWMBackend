@@ -1,5 +1,4 @@
-﻿using DocumentFormat.OpenXml.Drawing.Charts;
-using GWMBackend.Core.Model.Base;
+﻿using GWMBackend.Core.Model.Base;
 using GWMBackend.Domain.Models;
 using GWMBackend.Service.Base;
 using Microsoft.AspNetCore.Authorization;
@@ -49,7 +48,7 @@ namespace GWMBackend.Api.Controllers
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Pickup date is not valid",
                         Data = new { },
-                        Error = new { ErrorMsg = ModelState }
+                        Error = new { }
                     });
                 }
 
@@ -61,42 +60,59 @@ namespace GWMBackend.Api.Controllers
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "BucketAmont is not valid",
                         Data = new { },
-                        Error = new { ErrorMsg = ModelState }
+                        Error = new { }
                     });
                 }
 
-                //if (order.ProductsId == 0 || order.ProductsId == null)
-                //{
-                //    return BadRequest(new
-                //    {
-                //        TimeStamp = DateTime.Now,
-                //        ResponseCode = HttpStatusCode.BadRequest,
-                //        Message = "Products Id is not valid",
-                //        Data = new { },
-                //        Error = new { ErrorMsg = ModelState }
-                //    });
-                //}
-                var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
 
-                var res = new Domain.Models.Order()
+                if (order.Products.Count > 0)
                 {
-                    CustomerId = Convert.ToInt32(userId),
-                    BucketAmont = order.BucketAmont,
-                    PickupDate = order.PickupDate,
-                    //ProductsId = order.ProductsId,
-                };
+                    foreach (var item in order.Products)
+                    {
+                        if (item.Id == 0 || item.Quantity == 0)
+                        {
+                            return BadRequest(new
+                            {
+                                TimeStamp = DateTime.Now,
+                                ResponseCode = HttpStatusCode.BadRequest,
+                                Message = "Product detail is not valid",
+                                Data = new { },
+                                Error = new { }
+                            });
+                        }
+                    }
+                }
 
-                _service.order.AddOrder(res);
+                    var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
 
-                return Ok(new
-                {
-                    TimeStamp = DateTime.Now,
-                    ResponseCode = HttpStatusCode.OK,
-                    Message = "Order has been submitted succesfully!",
-                    Data = new { res },
-                    Error = new { }
-                });
-            }
+                    var res = new Domain.Models.Order()
+                    {
+                        CustomerId = Convert.ToInt32(userId),
+                        BucketAmont = order.BucketAmont,
+                        PickupDate = order.PickupDate,
+                    };
+
+                    var orderId = _service.order.AddOrder(res);
+                    var shopItem = new ShopItem();
+
+                    foreach (var item in order.Products)
+                    {
+                        shopItem = new ShopItem();
+                        shopItem.OrderId = orderId;
+                        shopItem.ProductId = item.Id;
+                        shopItem.Amont = item.Quantity;
+                        _service.shopItem.Add(shopItem);
+                    }
+
+                    return Ok(new
+                    {
+                        TimeStamp = DateTime.Now,
+                        ResponseCode = HttpStatusCode.OK,
+                        Message = "Order has been submitted succesfully!",
+                        Data = new { res },
+                        Error = new { }
+                    });
+                }
             catch (Exception ex)
             {
                 return Ok(new

@@ -17,10 +17,11 @@ namespace GWMBackend.Data.Repository
             _repositoryContext = repositoryContext;
         }
 
-        public void AddOrder(Order order)
+        public int AddOrder(Order order)
         {
             _repositoryContext.Orders.Add(order);
             _repositoryContext.SaveChanges();
+            return order.Id;
         }
 
         public void DeleteOrderById(int id)

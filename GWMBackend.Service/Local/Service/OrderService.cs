@@ -16,9 +16,9 @@ namespace GWMBackend.Service.Local.Service
         {
             _repository = repository;
         }
-        public void AddOrder(Order order)
+        public int AddOrder(Order order)
         {
-            _repository.order.AddOrder(order);
+            return _repository.order.AddOrder(order);
         }
 
         public void DeleteOrderById(int id)

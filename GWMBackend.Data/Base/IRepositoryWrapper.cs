@@ -7,6 +7,7 @@ namespace GWMBackend.Data.Base
         IEmailRepository email { get; }
         IOrderRepository order { get; }
         IProductRepository product { get; }
+        IShopItemRepository shopItem { get; }
 
         void Save();
     }

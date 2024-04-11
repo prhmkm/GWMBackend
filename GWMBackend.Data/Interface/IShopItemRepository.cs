@@ -7,13 +7,8 @@ using System.Threading.Tasks;
 
 namespace GWMBackend.Data.Interface
 {
-    public interface IOrderRepository
+    public interface IShopItemRepository
     {
-        int AddOrder(Order order);
-        List<Order> GetAllOrders();
-        Order GetOrderById(int id);
-        void DeleteOrderById(int id);
-           
-        
+        void Add(ShopItem shopItem);
     }
 }
