@@ -13,6 +13,7 @@ namespace GWMBackend.Domain.DTOs
             public int Id { get; set; }
             public string Title { get; set; }
             public int Inventory { get; set; }
+            public string? Photo { get; set; }
         }
     }
 }

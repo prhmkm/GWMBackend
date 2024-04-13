@@ -210,61 +210,6 @@ namespace GWMBackend.Api.Controllers
                 });
             }
         }
-        [HttpGet("GetData")]
-        public IActionResult GetData()
-        {
-            try
-            {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(new
-                    {
-                        TimeStamp = DateTime.Now,
-                        ResponseCode = HttpStatusCode.BadRequest,
-                        Message = "Unknown error",
-                        Data = new { },
-                        Error = new { ErrorMsg = ModelState }
-                    });
-                }
-
-                var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
-
-                var res = _service.email.GetById(Convert.ToInt32(userId));
-
-                if (res != null)
-                {
-                    return Ok(new
-                    {
-                        TimeStamp = DateTime.Now,
-                        ResponseCode = HttpStatusCode.OK,
-                        Message = "Your info",
-                        Data = new { res },
-                        Error = new { }
-                    });
-                }
-
-                return Ok(new
-                {
-                    TimeStamp = DateTime.Now,
-                    ResponseCode = HttpStatusCode.BadRequest,
-                    Message = "Failed",
-                    Data = new { },
-                    Error = new { }
-                });
-
-            }
-            catch (Exception ex)
-            {
-                return Ok(new
-                {
-                    TimeStamp = DateTime.Now,
-                    ResponseCode = HttpStatusCode.InternalServerError,
-                    Message = "An internal server error has occurred",
-                    Data = new { },
-                    Error = new { Response = ex.ToString() }
-                });
-            }
-        }
 
 
     }

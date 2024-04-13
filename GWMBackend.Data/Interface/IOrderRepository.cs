@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static GWMBackend.Domain.DTOs.OrderDTO;
 
 namespace GWMBackend.Data.Interface
 {
@@ -13,6 +14,7 @@ namespace GWMBackend.Data.Interface
         List<Order> GetAllOrders();
         Order GetOrderById(int id);
         void DeleteOrderById(int id);
+        List<BOGetAllOrders> BOGetAll();
            
         
     }

@@ -10,8 +10,7 @@ namespace GWMBackend.Domain.DTOs
     {
         public class AddOrder
         {
-            public int CustomerId { get; set; }
-            public DateTime PickupDate { get; set; }
+            public string PickupDate { get; set; }
             public string BucketAmont { get; set; } 
             public List<Products>? Products { get; set; }
         }
@@ -19,6 +18,22 @@ namespace GWMBackend.Domain.DTOs
         {
             public int Id { get; set; }
             public int Quantity { get; set; }
+        }
+        public class BOProducts
+        {
+            public int Id { get; set; }
+            public string Title { get; set; }
+            public int Quantity { get; set; }
+        }
+        public class BOGetAllOrders
+        {
+            public int Id { get; set; }
+            public int CustomerId { get; set; }
+            public string CustomerName { get; set; }
+            public DateTime PickupDate { get; set; }
+            public string BucketAmont { get; set; }
+            public List<BOProducts>? Products { get; set; }
+            public DateTime RegistrationDate { get; set; }
         }
 
     }

@@ -1,4 +1,5 @@
-﻿using GWMBackend.Core.Model.Base;
+﻿using GWMBackend.Core.Helpers;
+using GWMBackend.Core.Model.Base;
 using GWMBackend.Domain.Models;
 using GWMBackend.Service.Base;
 using Microsoft.AspNetCore.Authorization;
@@ -40,7 +41,7 @@ namespace GWMBackend.Api.Controllers
                         Error = new { ErrorMsg = ModelState }
                     });
                 }
-                if (order.PickupDate == null)
+                if (string.IsNullOrEmpty(order.PickupDate))
                 {
                     return BadRequest(new
                     {
@@ -51,6 +52,7 @@ namespace GWMBackend.Api.Controllers
                         Error = new { }
                     });
                 }
+
 
                 if (string.IsNullOrEmpty(order.BucketAmont))
                 {
@@ -83,36 +85,39 @@ namespace GWMBackend.Api.Controllers
                     }
                 }
 
-                    var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+                var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
 
-                    var res = new Domain.Models.Order()
-                    {
-                        CustomerId = Convert.ToInt32(userId),
-                        BucketAmont = order.BucketAmont,
-                        PickupDate = order.PickupDate,
-                    };
+                var data = Convert.ToDateTime(order.PickupDate);
 
-                    var orderId = _service.order.AddOrder(res);
-                    var shopItem = new ShopItem();
 
-                    foreach (var item in order.Products)
-                    {
-                        shopItem = new ShopItem();
-                        shopItem.OrderId = orderId;
-                        shopItem.ProductId = item.Id;
-                        shopItem.Amont = item.Quantity;
-                        _service.shopItem.Add(shopItem);
-                    }
+                var res = new Domain.Models.Order()
+                {
+                    CustomerId = Convert.ToInt32(userId),
+                    BucketAmont = order.BucketAmont,
+                    PickupDate = Convert.ToDateTime(order.PickupDate),
+                };
 
-                    return Ok(new
-                    {
-                        TimeStamp = DateTime.Now,
-                        ResponseCode = HttpStatusCode.OK,
-                        Message = "Order has been submitted succesfully!",
-                        Data = new { res },
-                        Error = new { }
-                    });
+                var orderId = _service.order.AddOrder(res);
+                var shopItem = new ShopItem();
+
+                foreach (var item in order.Products)
+                {
+                    shopItem = new ShopItem();
+                    shopItem.OrderId = orderId;
+                    shopItem.ProductId = item.Id;
+                    shopItem.Amont = item.Quantity;
+                    _service.shopItem.Add(shopItem);
                 }
+
+                return Ok(new
+                {
+                    TimeStamp = DateTime.Now,
+                    ResponseCode = HttpStatusCode.OK,
+                    Message = "Order has been submitted succesfully!",
+                    Data = new { res },
+                    Error = new { }
+                });
+            }
             catch (Exception ex)
             {
                 return Ok(new

@@ -32,7 +32,8 @@ namespace GWMBackend.Data.Repository
             {
                 Id = s.Id,
                 Title = s.Title,
-                Inventory = s.Inventory
+                Inventory = s.Inventory,
+                Photo = s.Photo
             }).ToList();
         }
 

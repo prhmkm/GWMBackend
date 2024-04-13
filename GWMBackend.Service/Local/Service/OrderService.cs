@@ -1,4 +1,5 @@
 ﻿using GWMBackend.Data.Base;
+using GWMBackend.Domain.DTOs;
 using GWMBackend.Domain.Models;
 using GWMBackend.Service.Local.Interface;
 using System;
@@ -19,6 +20,11 @@ namespace GWMBackend.Service.Local.Service
         public int AddOrder(Order order)
         {
             return _repository.order.AddOrder(order);
+        }
+
+        public List<OrderDTO.BOGetAllOrders> BOGetAll()
+        {
+            return _repository.order.BOGetAll();
         }
 
         public void DeleteOrderById(int id)

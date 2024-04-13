@@ -26,7 +26,7 @@ namespace GWMBackend.Domain.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("data source=.; initial catalog=GWM_DB;User Id=sa;Password=091202188007196p;");
+                optionsBuilder.UseSqlServer("data source=.; initial catalog=GWM_DB;User Id=sa;Password=P@sw0rd!;");
             }
         }
 
@@ -48,10 +48,6 @@ namespace GWMBackend.Domain.Models
 
                 entity.Property(e => e.RefreshToken).HasMaxLength(50);
 
-                entity.Property(e => e.RememberMe)
-                    .IsRequired()
-                    .HasDefaultValueSql("((1))");
-
                 entity.Property(e => e.RestaurantName).HasMaxLength(25);
 
                 entity.Property(e => e.VerificationCode).HasMaxLength(5);
@@ -59,7 +55,9 @@ namespace GWMBackend.Domain.Models
 
             modelBuilder.Entity<Order>(entity =>
             {
-                entity.Property(e => e.BucketAmont).HasMaxLength(15);
+                entity.Property(e => e.BucketAmont)
+                    .HasMaxLength(15)
+                    .IsFixedLength();
 
                 entity.Property(e => e.CreationDatetime)
                     .HasColumnType("datetime")
@@ -70,7 +68,9 @@ namespace GWMBackend.Domain.Models
 
             modelBuilder.Entity<Product>(entity =>
             {
-                entity.Property(e => e.Title).HasMaxLength(30);
+                entity.Property(e => e.Photo).HasMaxLength(100);
+
+                entity.Property(e => e.Title).HasMaxLength(50);
             });
 
             modelBuilder.Entity<ShopItem>(entity =>
