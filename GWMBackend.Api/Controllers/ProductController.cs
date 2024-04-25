@@ -20,7 +20,7 @@ namespace GWMBackend.Api.Controllers
             _appSettings = appSettings.Value;
             _service = service;
         }
-        [HttpPost("GetAllProducts")]
+        [HttpGet("GetAllProducts")]
         public IActionResult GetAllProducts()
         {
             try

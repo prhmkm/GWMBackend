@@ -14,6 +14,7 @@ namespace GWMBackend.Data.Interface
         List<Order> GetAllOrders();
         Order GetOrderById(int id);
         void DeleteOrderById(int id);
+        bool CheckOrders(int id);
         List<BOGetAllOrders> BOGetAll();
            
         

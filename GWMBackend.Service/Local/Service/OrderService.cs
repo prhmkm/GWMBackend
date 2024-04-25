@@ -27,6 +27,11 @@ namespace GWMBackend.Service.Local.Service
             return _repository.order.BOGetAll();
         }
 
+        public bool CheckOrders(int id)
+        {
+            return _repository.order.CheckOrders(id);   
+        }
+
         public void DeleteOrderById(int id)
         {
             _repository.order.DeleteOrderById(id);

@@ -13,6 +13,7 @@ namespace GWMBackend.Service.Local.Interface
         int AddOrder(Order order);
         List<Order> GetAllOrders();
         Order GetOrderById(int id);
+        bool CheckOrders(int id);
         void DeleteOrderById(int id);
         List<BOGetAllOrders> BOGetAll();
 

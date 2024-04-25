@@ -33,6 +33,7 @@ namespace GWMBackend.Data.Repository
                 Id = s.Id,
                 Title = s.Title,
                 Inventory = s.Inventory,
+                Description = s.Description,
                 Photo = s.Photo
             }).ToList();
         }

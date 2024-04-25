@@ -32,6 +32,7 @@ namespace GWMBackend.Domain.DTOs
             public string CustomerName { get; set; }
             public DateTime PickupDate { get; set; }
             public string BucketAmont { get; set; }
+            public bool IsDone { get; set; }
             public List<BOProducts>? Products { get; set; }
             public DateTime RegistrationDate { get; set; }
         }

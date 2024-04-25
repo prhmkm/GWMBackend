@@ -55,9 +55,7 @@ namespace GWMBackend.Domain.Models
 
             modelBuilder.Entity<Order>(entity =>
             {
-                entity.Property(e => e.BucketAmont)
-                    .HasMaxLength(15)
-                    .IsFixedLength();
+                entity.Property(e => e.BucketAmont).HasMaxLength(15);
 
                 entity.Property(e => e.CreationDatetime)
                     .HasColumnType("datetime")
@@ -68,6 +66,8 @@ namespace GWMBackend.Domain.Models
 
             modelBuilder.Entity<Product>(entity =>
             {
+                entity.Property(e => e.Description).HasMaxLength(100);
+
                 entity.Property(e => e.Photo).HasMaxLength(100);
 
                 entity.Property(e => e.Title).HasMaxLength(50);

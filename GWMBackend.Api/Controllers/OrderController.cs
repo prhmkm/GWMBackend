@@ -41,6 +41,21 @@ namespace GWMBackend.Api.Controllers
                         Error = new { ErrorMsg = ModelState }
                     });
                 }
+
+                var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+
+                if (_service.order.CheckOrders(Convert.ToInt32(userId)))
+                {
+                    return BadRequest(new
+                    {
+                        TimeStamp = DateTime.Now,
+                        ResponseCode = HttpStatusCode.BadRequest,
+                        Message = "This user has an ongoing order",
+                        Data = new { },
+                        Error = new { }
+                    });
+                }
+
                 if (string.IsNullOrEmpty(order.PickupDate))
                 {
                     return BadRequest(new
@@ -84,8 +99,6 @@ namespace GWMBackend.Api.Controllers
                         }
                     }
                 }
-
-                var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
 
                 var data = Convert.ToDateTime(order.PickupDate);
 

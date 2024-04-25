@@ -36,6 +36,7 @@ namespace GWMBackend.Data.Repository
                 CustomerName = _repositoryContext.Customers.FirstOrDefault(o => o.Id == s.CustomerId).Name,
                 PickupDate = s.PickupDate,
                 BucketAmont = s.BucketAmont,
+                IsDone = s.IsDone,
                 RegistrationDate = s.CreationDatetime,
                 Products = _repositoryContext.ShopItems
                 .Where(o => o.OrderId == s.Id)
@@ -47,6 +48,11 @@ namespace GWMBackend.Data.Repository
                     Quantity = o.Amont
                 }).ToList()
             }).ToList();
+        }
+
+        public bool CheckOrders(int id)
+        {
+            return _repositoryContext.Orders.Where(s => s.Id == id && s.IsDone == false).Any();
         }
 
         public void DeleteOrderById(int id)
