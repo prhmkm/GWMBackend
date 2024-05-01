@@ -10,5 +10,6 @@ namespace GWMBackend.Domain.Models
         public int Inventory { get; set; }
         public string? Description { get; set; }
         public string? Photo { get; set; }
+        public bool? IsActive { get; set; }
     }
 }

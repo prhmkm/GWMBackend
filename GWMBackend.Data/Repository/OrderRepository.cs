@@ -33,7 +33,7 @@ namespace GWMBackend.Data.Repository
             {
                 Id = s.Id,
                 CustomerId = s.CustomerId,
-                CustomerName = _repositoryContext.Customers.FirstOrDefault(o => o.Id == s.CustomerId).Name,
+                CustomerName = _repositoryContext.Customers.FirstOrDefault(o => o.Id == s.CustomerId).FirstName + " " + _repositoryContext.Customers.FirstOrDefault(o => o.Id == s.CustomerId).LastName,
                 PickupDate = s.PickupDate,
                 BucketAmount = _repositoryContext.BucketAmounts.FirstOrDefault(o => o.Id == s.BucketAmountId).Title,
                 IsDone = s.IsDone,

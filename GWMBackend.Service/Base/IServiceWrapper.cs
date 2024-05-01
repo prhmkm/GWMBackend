@@ -12,6 +12,7 @@ namespace GWMBackend.Service.Base
         IEmailSmtpService emailSmtpService { get; }
         IProductService product { get; }
         IShopItemService shopItem { get; }
+        ICustomerService customer { get; }
         void Save();
     }
 }

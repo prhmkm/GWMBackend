@@ -35,7 +35,7 @@ namespace GWMBackend.Service.Remote.Service
             { 
                 From = new MailAddress(_appSettings.Mail),
                 Subject = "Your verification code!",
-                Body = $"<h1>Hello {customer.Name}</h1>" +
+                Body = $"<h1>Hello {customer.FirstName} {customer.LastName}</h1>" +
                 $"<h2>Your verification code is {code}</h2>" +
                 $"<h3>From GWM</h3>",
                 IsBodyHtml = true,

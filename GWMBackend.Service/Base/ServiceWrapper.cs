@@ -29,6 +29,8 @@ namespace GWMBackend.Service.Base
 
         public IShopItemService shopItem => new ShopItemService(_repository);
 
+        public ICustomerService customer => new CustomerService(_repository);
+
         public void Save()
         {
             _repository.Save();

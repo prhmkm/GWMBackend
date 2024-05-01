@@ -21,6 +21,7 @@ namespace GWMBackend.Domain.Models
         public virtual DbSet<Order> Orders { get; set; } = null!;
         public virtual DbSet<Product> Products { get; set; } = null!;
         public virtual DbSet<ShopItem> ShopItems { get; set; } = null!;
+        public virtual DbSet<User> Users { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -42,6 +43,8 @@ namespace GWMBackend.Domain.Models
             {
                 entity.Property(e => e.Email).HasMaxLength(25);
 
+                entity.Property(e => e.FirstName).HasMaxLength(15);
+
                 entity.Property(e => e.IsActive)
                     .IsRequired()
                     .HasDefaultValueSql("((1))");
@@ -50,13 +53,19 @@ namespace GWMBackend.Domain.Models
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("(getdate())");
 
-                entity.Property(e => e.Name).HasMaxLength(30);
+                entity.Property(e => e.LastName).HasMaxLength(15);
+
+                entity.Property(e => e.PhoneNumber).HasMaxLength(15);
 
                 entity.Property(e => e.RefreshToken).HasMaxLength(50);
 
                 entity.Property(e => e.RestaurantName).HasMaxLength(25);
 
+                entity.Property(e => e.RoleId).HasDefaultValueSql("((1))");
+
                 entity.Property(e => e.VerificationCode).HasMaxLength(5);
+
+                entity.Property(e => e.ZipCode).HasMaxLength(10);
             });
 
             modelBuilder.Entity<Order>(entity =>
@@ -72,6 +81,10 @@ namespace GWMBackend.Domain.Models
             {
                 entity.Property(e => e.Description).HasMaxLength(100);
 
+                entity.Property(e => e.IsActive)
+                    .IsRequired()
+                    .HasDefaultValueSql("((1))");
+
                 entity.Property(e => e.Photo).HasMaxLength(100);
 
                 entity.Property(e => e.Title).HasMaxLength(50);
@@ -82,6 +95,35 @@ namespace GWMBackend.Domain.Models
                 entity.Property(e => e.CreationDatetime)
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("(getdate())");
+            });
+
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.Property(e => e.Email).HasMaxLength(25);
+
+                entity.Property(e => e.FirstName).HasMaxLength(15);
+
+                entity.Property(e => e.IsActive)
+                    .IsRequired()
+                    .HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.JoinDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.LastName).HasMaxLength(15);
+
+                entity.Property(e => e.Password).HasMaxLength(50);
+
+                entity.Property(e => e.PhoneNumber).HasMaxLength(15);
+
+                entity.Property(e => e.RefreshToken).HasMaxLength(50);
+
+                entity.Property(e => e.UserName).HasMaxLength(20);
+
+                entity.Property(e => e.VerificationCode).HasMaxLength(5);
             });
 
             OnModelCreatingPartial(modelBuilder);

@@ -41,8 +41,8 @@ namespace GWMBackend.Service.Local.Service
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, customer.Name),
-                    new Claim(ClaimTypes.Role, "Customer"),
+                    new Claim(ClaimTypes.Name, customer.FirstName),
+                    new Claim(ClaimTypes.Role, customer.RoleId.ToString()),
                     new Claim(ClaimTypes.NameIdentifier, customer.Id.ToString()),
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(tokenValidateInMinutes ?? _appSettings.TokenValidateInMinutes),

@@ -23,6 +23,8 @@ namespace GWMBackend.Data.Base
 
         public IShopItemRepository shopItem => new ShopItemRepository(_repoContext);
 
+        public ICustomerRepository customer => new CustomerRepository(_repoContext);
+
         public void Save()
         {
             _repoContext.SaveChanges();

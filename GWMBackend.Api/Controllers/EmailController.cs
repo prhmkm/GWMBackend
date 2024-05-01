@@ -172,8 +172,8 @@ namespace GWMBackend.Api.Controllers
                     CLoginResponse login = new CLoginResponse
                     {
 
-                        DisplayName = res.Name,
-                        Mobile = "",
+                        DisplayName = res.FirstName + " " + res.LastName,
+                        Mobile = res.PhoneNumber,
                         Token = token.AccessToken,
                         RefreshToken = refreshToken,
                         CreationDateTime = res.JoinDate
