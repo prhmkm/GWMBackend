@@ -16,6 +16,7 @@ namespace GWMBackend.Service.Local.Interface
         bool CheckOrders(int id);
         void DeleteOrderById(int id);
         List<BOGetAllOrders> BOGetAll();
+        List<BucketAmount> GetAlBucketAmont();
 
     }
 }

@@ -56,6 +56,7 @@ namespace GWMBackend.Api.Controllers
                     });
                 }
 
+
                 if (string.IsNullOrEmpty(order.PickupDate))
                 {
                     return BadRequest(new
@@ -69,7 +70,7 @@ namespace GWMBackend.Api.Controllers
                 }
 
 
-                if (string.IsNullOrEmpty(order.BucketAmont))
+                if (order.BucketAmontId > 0)
                 {
                     return BadRequest(new
                     {
@@ -106,7 +107,7 @@ namespace GWMBackend.Api.Controllers
                 var res = new Domain.Models.Order()
                 {
                     CustomerId = Convert.ToInt32(userId),
-                    BucketAmont = order.BucketAmont,
+                    BucketAmountId = order.BucketAmontId,
                     PickupDate = Convert.ToDateTime(order.PickupDate),
                 };
 
@@ -118,7 +119,7 @@ namespace GWMBackend.Api.Controllers
                     shopItem = new ShopItem();
                     shopItem.OrderId = orderId;
                     shopItem.ProductId = item.Id;
-                    shopItem.Amont = item.Quantity;
+                    shopItem.Amount = item.Quantity;
                     _service.shopItem.Add(shopItem);
                 }
 
@@ -146,5 +147,50 @@ namespace GWMBackend.Api.Controllers
 
 
         }
+        [AllowAnonymous]
+        [HttpGet("BucketAmounts")]
+        public IActionResult BucketAmounts()
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(new
+                    {
+                        TimeStamp = DateTime.Now,
+                        ResponseCode = HttpStatusCode.BadRequest,
+                        Message = "Unknown error",
+                        Data = new { },
+                        Error = new { ErrorMsg = ModelState }
+                    });
+                }
+
+                var res = _service.order.GetAlBucketAmont();
+
+                return Ok(new
+                {
+                    TimeStamp = DateTime.Now,
+                    ResponseCode = HttpStatusCode.OK,
+                    Message = "Bucket amounts have been sent succesfully!",
+                    Data = new { res },
+                    Error = new { }
+                });
+            }
+            catch (Exception ex)
+            {
+                return Ok(new
+                {
+                    TimeStamp = DateTime.Now,
+                    ResponseCode = HttpStatusCode.InternalServerError,
+                    Message = "An internal server error has occurred",
+                    Data = new { },
+                    Error = new { Response = ex.ToString() }
+                });
+            }
+
+
+
+        }
+
     }
 }

@@ -7,7 +7,7 @@ using System.Net;
 
 namespace GWMBackend.Api.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductController : Controller
@@ -20,6 +20,7 @@ namespace GWMBackend.Api.Controllers
             _appSettings = appSettings.Value;
             _service = service;
         }
+        [AllowAnonymous]
         [HttpGet("GetAllProducts")]
         public IActionResult GetAllProducts()
         {

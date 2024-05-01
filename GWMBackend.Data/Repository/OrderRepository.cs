@@ -35,7 +35,7 @@ namespace GWMBackend.Data.Repository
                 CustomerId = s.CustomerId,
                 CustomerName = _repositoryContext.Customers.FirstOrDefault(o => o.Id == s.CustomerId).Name,
                 PickupDate = s.PickupDate,
-                BucketAmont = s.BucketAmont,
+                BucketAmount = _repositoryContext.BucketAmounts.FirstOrDefault(o => o.Id == s.BucketAmountId).Title,
                 IsDone = s.IsDone,
                 RegistrationDate = s.CreationDatetime,
                 Products = _repositoryContext.ShopItems
@@ -45,14 +45,16 @@ namespace GWMBackend.Data.Repository
                 {
                     Id = o.Id,
                     Title = _repositoryContext.Products.FirstOrDefault(x => x.Id == o.ProductId).Title,
-                    Quantity = o.Amont
+                    Quantity = o.Amount
                 }).ToList()
             }).ToList();
         }
 
         public bool CheckOrders(int id)
         {
-            return _repositoryContext.Orders.Where(s => s.Id == id && s.IsDone == false).Any();
+            return _repositoryContext.Orders
+                .Where(s => s.CustomerId == id && s.IsDone == false)
+                .Any();
         }
 
         public void DeleteOrderById(int id)
@@ -64,6 +66,11 @@ namespace GWMBackend.Data.Repository
             }
         }
 
+        public List<BucketAmount> GetAllBucketAmont()
+        {
+            return _repositoryContext.BucketAmounts.ToList();
+        }
+
         public List<Order> GetAllOrders()
         {
 
@@ -71,7 +78,7 @@ namespace GWMBackend.Data.Repository
             new Order
             {
                 Id = r.Id,
-                BucketAmont = r.BucketAmont,
+                BucketAmountId = r.BucketAmountId,
                 CreationDatetime = r.CreationDatetime,
                 CustomerId = r.CustomerId,
                 PickupDate = r.PickupDate,

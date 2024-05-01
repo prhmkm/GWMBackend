@@ -16,6 +16,7 @@ namespace GWMBackend.Domain.Models
         {
         }
 
+        public virtual DbSet<BucketAmount> BucketAmounts { get; set; } = null!;
         public virtual DbSet<Customer> Customers { get; set; } = null!;
         public virtual DbSet<Order> Orders { get; set; } = null!;
         public virtual DbSet<Product> Products { get; set; } = null!;
@@ -32,6 +33,11 @@ namespace GWMBackend.Domain.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<BucketAmount>(entity =>
+            {
+                entity.Property(e => e.Title).HasMaxLength(20);
+            });
+
             modelBuilder.Entity<Customer>(entity =>
             {
                 entity.Property(e => e.Email).HasMaxLength(25);
@@ -55,8 +61,6 @@ namespace GWMBackend.Domain.Models
 
             modelBuilder.Entity<Order>(entity =>
             {
-                entity.Property(e => e.BucketAmont).HasMaxLength(15);
-
                 entity.Property(e => e.CreationDatetime)
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("(getdate())");

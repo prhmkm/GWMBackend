@@ -8,7 +8,7 @@ namespace GWMBackend.Domain.Models
         public int Id { get; set; }
         public int CustomerId { get; set; }
         public DateTime PickupDate { get; set; }
-        public string BucketAmont { get; set; } = null!;
+        public int BucketAmountId { get; set; }
         public bool IsDone { get; set; }
         public DateTime CreationDatetime { get; set; }
     }

@@ -37,6 +37,11 @@ namespace GWMBackend.Service.Local.Service
             _repository.order.DeleteOrderById(id);
         }
 
+        public List<BucketAmount> GetAlBucketAmont()
+        {
+            return _repository.order.GetAllBucketAmont();
+        }
+
         public List<Order> GetAllOrders()
         {
             return _repository.order.GetAllOrders();
