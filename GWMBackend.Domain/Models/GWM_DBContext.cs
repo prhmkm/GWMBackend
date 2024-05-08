@@ -28,7 +28,7 @@ namespace GWMBackend.Domain.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("data source=.; initial catalog=GWM_DB;User Id=sa;Password=P@sw0rd!;");
+                optionsBuilder.UseSqlServer("data source=monte-rosa.liara.cloud,31182; initial catalog=GWM_DB;User Id=sa;Password=2sV9Bn4HjmSejfrqJ5YAxXED;");
             }
         }
 
@@ -106,6 +106,8 @@ namespace GWMBackend.Domain.Models
                 entity.Property(e => e.Email).HasMaxLength(25);
 
                 entity.Property(e => e.FirstName).HasMaxLength(15);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.IsActive)
                     .IsRequired()

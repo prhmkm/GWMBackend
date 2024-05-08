@@ -2,11 +2,6 @@
 using GWMBackend.Domain.DTOs;
 using GWMBackend.Domain.Models;
 using GWMBackend.Service.Local.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GWMBackend.Service.Local.Service
 {

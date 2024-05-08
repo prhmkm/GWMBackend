@@ -1,4 +1,5 @@
 ﻿using DocumentFormat.OpenXml.Presentation;
+using GWMBackend.Api.Utilities;
 using GWMBackend.Core.Model.Base;
 using GWMBackend.Domain.Models;
 using GWMBackend.Service.Base;
@@ -12,7 +13,8 @@ using static GWMBackend.Domain.DTOs.ProductDTO;
 
 namespace GWMBackend.Api.Controllers
 {
-    //[Authorize]
+    [Authorize]
+    [MyAthurizeFilter]
     [Route("api/[controller]")]
     [ApiController]
     public class AdminController : Controller
