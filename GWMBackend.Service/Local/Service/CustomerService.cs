@@ -37,5 +37,10 @@ namespace GWMBackend.Service.Local.Service
         {
             _repository.customer.Edit(customer);
         }
+
+        public Customer GetById(int id)
+        {
+            return _repository.customer.GetById(id);
+        }
     }
 }

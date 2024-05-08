@@ -19,6 +19,12 @@ namespace GWMBackend.Core.Model.Base
         public string Username { get; set; }
         public string Password { get; set; }
         public string Mail { get; set; }
+        public string LIARA_ENDPOINT { get; set; }
+        public string LIARA_BUCKET_NAME { get; set; }
+        public string LIARA_ACCESS_KEY { get; set; }
+
+        public string LIARA_SECRET_KEY { get; set; }
+
 
     }
 }

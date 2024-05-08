@@ -23,6 +23,11 @@ namespace GWMBackend.Service.Local.Service
             _repository.product.Add(product);
         }
 
+        public List<ProductDTO.BOGetAllProducts> BOGetAll()
+        {
+            return _repository.product.BOGetAll();
+        }
+
         public void Edit(Product product)
         {
             _repository.product.Edit(product);

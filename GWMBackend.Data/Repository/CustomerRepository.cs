@@ -70,5 +70,10 @@ namespace GWMBackend.Data.Repository
             Update(customer);
             Save();
         }
+
+        public Customer GetById(int id)
+        {
+            return _repositoryContext.Customers.FirstOrDefault(s => s.Id == id);
+        }
     }
 }

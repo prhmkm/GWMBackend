@@ -13,6 +13,7 @@ namespace GWMBackend.Service.Base
         IProductService product { get; }
         IShopItemService shopItem { get; }
         ICustomerService customer { get; }
+        IPhotoService photo { get; }
         void Save();
     }
 }

@@ -9,5 +9,6 @@ namespace GWMBackend.Service.Local.Interface
         List<BOGetAllCustomers> BOGetAllRegisteredCustomers();
         void Add(Customer customer);
         void Edit(Customer customer);
+        Customer GetById(int id);
     }
 }

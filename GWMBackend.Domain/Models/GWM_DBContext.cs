@@ -87,6 +87,8 @@ namespace GWMBackend.Domain.Models
 
                 entity.Property(e => e.Photo).HasMaxLength(100);
 
+                entity.Property(e => e.Price).HasMaxLength(50);
+
                 entity.Property(e => e.Title).HasMaxLength(50);
             });
 
