@@ -1,3 +1,4 @@
+using GWMBackend.Api.Hubs;
 using GWMBackend.Core.Helpers;
 using GWMBackend.Core.Model.Base;
 using GWMBackend.Data.Base;
@@ -51,6 +52,8 @@ var xz = builder.Configuration["ConnectionString:DB"];
 builder.Services.AddDbContext<GWM_DBContext>(options => options.UseSqlServer(xz), ServiceLifetime.Transient);
 ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
 
+
+builder.Services.AddSignalR();
 builder.Services.AddControllers();
 
 builder.Services.AddMvc(option => option.EnableEndpointRouting = false);
@@ -125,6 +128,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHub<ChatHub>("/Chat");
 
 app.Run();
 
