@@ -122,6 +122,17 @@ app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/GWMBackend/swagger.json", "GWM
 //{
 //    app.UseSwaggerUI(c => c.SwaggerEndpoint("/api/swagger/GWMBackend/swagger.json", "GWMBackend v1"));
 //}
+//app.UseCors("reactApp");
+//builder.Services.AddCors(opt =>
+//{
+//    opt.AddPolicy("reactApp", policyBuilder =>
+//    {
+//        policyBuilder.WithOrigins("http://127.0.0.1:5173")
+//        .AllowAnyHeader()
+//        .AllowAnyMethod()
+//        .AllowCredentials();
+//    });
+//});
 
 app.UseHttpsRedirection();
 
