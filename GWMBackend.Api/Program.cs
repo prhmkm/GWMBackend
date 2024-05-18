@@ -1,5 +1,4 @@
 using GWMBackend.Api.Hubs;
-using GWMBackend.Core.Helpers;
 using GWMBackend.Core.Model.Base;
 using GWMBackend.Data.Base;
 using GWMBackend.Domain.Models;
@@ -61,6 +60,9 @@ builder.Services.AddMvc(option => option.EnableEndpointRouting = false);
 var appSettingsSection = builder.Configuration.GetSection("AppSettings");
 builder.Services.Configure<AppSettings>(appSettingsSection);
 
+
+
+
 var appSettings = appSettingsSection.Get<AppSettings>();
 var key = Encoding.ASCII.GetBytes(appSettings.TokenSecret);
 builder.Services.AddAuthentication(x =>
@@ -86,6 +88,17 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IServiceWrapper, ServiceWrapper>();
 builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
 
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy("reactApp", policyBuilder =>
+    {
+        policyBuilder.WithOrigins("http://localhost:5173", "http://localhost:5173/")
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowCredentials();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -100,13 +113,9 @@ app.UseSwagger(c =>
 
 app.UseRouting();
 
-app.UseCors(x => x
-    .AllowAnyOrigin()
-    .AllowAnyMethod()
-    .AllowAnyHeader());
+app.UseCors("reactApp");
 
 app.UseAuthentication();
-app.UseAuthorization();
 
 
 app.UseEndpoints(endpoints =>
@@ -122,23 +131,15 @@ app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/GWMBackend/swagger.json", "GWM
 //{
 //    app.UseSwaggerUI(c => c.SwaggerEndpoint("/api/swagger/GWMBackend/swagger.json", "GWMBackend v1"));
 //}
-//app.UseCors("reactApp");
-//builder.Services.AddCors(opt =>
-//{
-//    opt.AddPolicy("reactApp", policyBuilder =>
-//    {
-//        policyBuilder.WithOrigins("http://127.0.0.1:5173")
-//        .AllowAnyHeader()
-//        .AllowAnyMethod()
-//        .AllowCredentials();
-//    });
-//});
+
+
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
+
 
 app.MapHub<ChatHub>("/Chat");
 

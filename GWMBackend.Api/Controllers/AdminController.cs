@@ -157,7 +157,7 @@ namespace GWMBackend.Api.Controllers
                 });
             }
         }
-        [HttpPost("Customer/AddCustomer")]
+        [HttpPost("Customer/BOAddCustomer")]
         public IActionResult AddCustomer([FromBody] AddCustomer addCustomer)
         {
             try
@@ -295,7 +295,7 @@ namespace GWMBackend.Api.Controllers
                 });
             }
         }
-        [HttpPost("Customer/EditCustomer")]
+        [HttpPost("Customer/BOEditCustomer")]
         public IActionResult EditCustomer([FromBody] EditCustomer editCustomer)
         {
             try
