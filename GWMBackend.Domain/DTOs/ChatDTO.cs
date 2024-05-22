@@ -13,5 +13,10 @@ namespace GWMBackend.Domain.DTOs
             public string UserName { get; set; }
             public string ChatRoom { get; set; }
         }
+        public class UserSendMessage
+        {
+            public string Messgae { get; set; }
+            public string ChatRoom { get; set; }
+        }
     }
 }

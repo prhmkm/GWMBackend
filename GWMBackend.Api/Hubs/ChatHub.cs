@@ -17,5 +17,10 @@ namespace GWMBackend.Api.Hubs
             await Clients.Group(conn.ChatRoom)
                 .SendAsync("JoinToChatRoom", "admin", $"{conn.UserName} has joined {conn.ChatRoom} chatroom");
         }
+        public async Task SendMessageToGroup(UserSendMessage conn)
+        {
+            await Clients.Group(conn.ChatRoom)
+                .SendAsync("SendMessageToGroup", "admin", $"{conn.Messgae}");
+        }
     }
 }
