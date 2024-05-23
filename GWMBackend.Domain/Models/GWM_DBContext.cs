@@ -18,6 +18,7 @@ namespace GWMBackend.Domain.Models
 
         public virtual DbSet<BucketAmount> BucketAmounts { get; set; } = null!;
         public virtual DbSet<Customer> Customers { get; set; } = null!;
+        public virtual DbSet<HubConnection> HubConnections { get; set; } = null!;
         public virtual DbSet<Order> Orders { get; set; } = null!;
         public virtual DbSet<Product> Products { get; set; } = null!;
         public virtual DbSet<ShopItem> ShopItems { get; set; } = null!;
@@ -66,6 +67,15 @@ namespace GWMBackend.Domain.Models
                 entity.Property(e => e.VerificationCode).HasMaxLength(5);
 
                 entity.Property(e => e.ZipCode).HasMaxLength(10);
+            });
+
+            modelBuilder.Entity<HubConnection>(entity =>
+            {
+                entity.Property(e => e.ChatRoom).HasMaxLength(30);
+
+                entity.Property(e => e.ConnectionId).HasMaxLength(50);
+
+                entity.Property(e => e.Username).HasMaxLength(30);
             });
 
             modelBuilder.Entity<Order>(entity =>
