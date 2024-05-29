@@ -92,7 +92,7 @@ builder.Services.AddCors(opt =>
 {
     opt.AddPolicy("reactApp", policyBuilder =>
     {
-        policyBuilder.WithOrigins("http://localhost:5173", "http://localhost:5173/")
+        policyBuilder.WithOrigins("http://localhost:5173", "http://localhost:5173", "http://10.100.18.21:5173")
         .AllowAnyHeader()
         .AllowAnyMethod()
         .AllowCredentials();

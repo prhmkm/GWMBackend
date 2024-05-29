@@ -17,6 +17,7 @@ namespace GWMBackend.Domain.Models
         }
 
         public virtual DbSet<BucketAmount> BucketAmounts { get; set; } = null!;
+        public virtual DbSet<ChatLog> ChatLogs { get; set; } = null!;
         public virtual DbSet<Customer> Customers { get; set; } = null!;
         public virtual DbSet<HubConnection> HubConnections { get; set; } = null!;
         public virtual DbSet<Order> Orders { get; set; } = null!;
@@ -40,6 +41,19 @@ namespace GWMBackend.Domain.Models
                 entity.Property(e => e.Title).HasMaxLength(20);
             });
 
+            modelBuilder.Entity<ChatLog>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.ChatRoom).HasMaxLength(20);
+
+                entity.Property(e => e.CreationDateTime)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.SenderUsername).HasMaxLength(20);
+            });
+
             modelBuilder.Entity<Customer>(entity =>
             {
                 entity.Property(e => e.Email).HasMaxLength(25);
@@ -56,6 +70,8 @@ namespace GWMBackend.Domain.Models
 
                 entity.Property(e => e.LastName).HasMaxLength(15);
 
+                entity.Property(e => e.Password).HasMaxLength(30);
+
                 entity.Property(e => e.PhoneNumber).HasMaxLength(15);
 
                 entity.Property(e => e.RefreshToken).HasMaxLength(50);
@@ -63,6 +79,8 @@ namespace GWMBackend.Domain.Models
                 entity.Property(e => e.RestaurantName).HasMaxLength(25);
 
                 entity.Property(e => e.RoleId).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.Username).HasMaxLength(20);
 
                 entity.Property(e => e.VerificationCode).HasMaxLength(5);
 
@@ -74,6 +92,10 @@ namespace GWMBackend.Domain.Models
                 entity.Property(e => e.ChatRoom).HasMaxLength(30);
 
                 entity.Property(e => e.ConnectionId).HasMaxLength(50);
+
+                entity.Property(e => e.CreationDateTime)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.Username).HasMaxLength(30);
             });
