@@ -60,7 +60,7 @@ namespace GWMBackend.Api.Hubs
                 }
                 else
                 {
-                    await Clients.Group("admins")
+                    await Clients.Groups("admins",_user.ChatRoom)
                         .SendAsync("SendMessage", _user.Username, msg);
                 }
 
