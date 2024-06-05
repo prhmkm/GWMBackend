@@ -34,7 +34,9 @@ namespace GWMBackend.Domain.DTOs
             public int Inventory { get; set; }
             public string Price { get; set; }
             public string? Description { get; set; }
-            public IFormFile? Photo { get; set; }
+            public string? Photo { get; set; }
+            public string? PhotoName { get; set; }
+
         }
         public class EditProduct
         {
@@ -43,7 +45,8 @@ namespace GWMBackend.Domain.DTOs
             public int? Inventory { get; set; }
             public string? Price { get; set; }
             public string? Description { get; set; }
-            public IFormFile? Photo { get; set; }
+            public string? Photo { get; set; }
+            public string? PhotoName { get; set; }
             public bool? IsActive { get; set; }
         }
     }

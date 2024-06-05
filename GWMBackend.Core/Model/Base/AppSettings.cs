@@ -10,7 +10,6 @@ namespace GWMBackend.Core.Model.Base
         public int TokenValidateInMinutes { get; set; }
         public string PublishImagePath { get; set; }
         public string SaveImagePath { get; set; }
-        public string DefaultLanguage { get; set; }
         public string ApiKey { get; set; }
         public string Url { get; set; }
         public int MenuLevel { get; set; }
@@ -22,9 +21,6 @@ namespace GWMBackend.Core.Model.Base
         public string LIARA_ENDPOINT { get; set; }
         public string LIARA_BUCKET_NAME { get; set; }
         public string LIARA_ACCESS_KEY { get; set; }
-
         public string LIARA_SECRET_KEY { get; set; }
-
-
     }
 }

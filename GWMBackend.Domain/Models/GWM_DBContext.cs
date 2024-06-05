@@ -21,6 +21,7 @@ namespace GWMBackend.Domain.Models
         public virtual DbSet<Customer> Customers { get; set; } = null!;
         public virtual DbSet<HubConnection> HubConnections { get; set; } = null!;
         public virtual DbSet<Order> Orders { get; set; } = null!;
+        public virtual DbSet<Picture> Pictures { get; set; } = null!;
         public virtual DbSet<Product> Products { get; set; } = null!;
         public virtual DbSet<ShopItem> ShopItems { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
@@ -43,8 +44,6 @@ namespace GWMBackend.Domain.Models
 
             modelBuilder.Entity<ChatLog>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.Property(e => e.ChatRoom).HasMaxLength(20);
 
                 entity.Property(e => e.CreationDateTime)
@@ -107,6 +106,15 @@ namespace GWMBackend.Domain.Models
                     .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.PickupDate).HasColumnType("datetime");
+            });
+
+            modelBuilder.Entity<Picture>(entity =>
+            {
+                entity.Property(e => e.Address).HasMaxLength(50);
+
+                entity.Property(e => e.ImageName).HasMaxLength(30);
+
+                entity.Property(e => e.Thumbnail).HasMaxLength(50);
             });
 
             modelBuilder.Entity<Product>(entity =>

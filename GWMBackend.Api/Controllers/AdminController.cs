@@ -490,7 +490,7 @@ namespace GWMBackend.Api.Controllers
 
         }
         [HttpPost("Product/AddProduct")]
-        public IActionResult AddProduct([FromForm] AddProduct addProduct)
+        public IActionResult AddProduct([FromBody] AddProduct addProduct)
         {
             try
             {
@@ -565,8 +565,8 @@ namespace GWMBackend.Api.Controllers
 
                 if (addProduct.Photo != null)
                 {
-                    _service.photo.Upload(addProduct.Photo);
-                    product.Photo = _appSettings.LIARA_ENDPOINT + "/" + _appSettings.LIARA_BUCKET_NAME + "/Products/" + addProduct.Photo.FileName;
+                    var photo = _service.photo.Upload(addProduct.PhotoName + "-" + DateTime.Now.ToString("MMddHHmmss"), addProduct.Photo, false, 1) ;
+                    product.Photo = photo.Address;
                 }
 
                 _service.product.Add(product);
@@ -595,7 +595,7 @@ namespace GWMBackend.Api.Controllers
             }
         }
         [HttpPost("Product/EditProduct")]
-        public IActionResult EditProduct([FromForm] EditProduct editProduct)
+        public IActionResult EditProduct([FromBody] EditProduct editProduct)
         {
             try
             {
@@ -683,10 +683,17 @@ namespace GWMBackend.Api.Controllers
                 {
                     if (!string.IsNullOrEmpty(product.Photo))
                     {
-                        _service.photo.Delete(product.Photo);
+                        var res = _service.photo.GetByAddress(product.Photo);
+                        if (res != null)
+                        {
+                            var imageName = res.Address.Split("/")[res.Thumbnail.Split("/").Count() - 1];
+                            if (System.IO.File.Exists(_appSettings.SaveImagePath + "\\Products\\" + imageName))
+                                System.IO.File.Delete(_appSettings.SaveImagePath + "\\Products\\" + imageName);
+                            _service.photo.DeleteById(res.Id);
+                        }
                     }
-                    _service.photo.Upload(editProduct.Photo);
-                    product.Photo = _appSettings.LIARA_ENDPOINT + "/" + _appSettings.LIARA_BUCKET_NAME + "/Products/" + editProduct.Photo.FileName;
+                    var photo = _service.photo.Upload(editProduct.PhotoName + "-" + DateTime.Now.ToString("MMddHHmmss"), editProduct.Photo, false, 1);
+                    product.Photo = photo.Address;
                 }
 
                 _service.product.Edit(product);

@@ -25,6 +25,8 @@ namespace GWMBackend.Data.Base
 
         public ICustomerRepository customer => new CustomerRepository(_repoContext);
 
+        public IPictureRepository picture => new PictureRepository(_repoContext);
+
         public void Save()
         {
             _repoContext.SaveChanges();

@@ -92,7 +92,7 @@ builder.Services.AddCors(opt =>
 {
     opt.AddPolicy("reactApp", policyBuilder =>
     {
-        policyBuilder.WithOrigins("http://localhost:5173", "http://localhost:5173", "http://10.100.18.21:5173")
+        policyBuilder.WithOrigins("http://localhost:5173", "http://localhost:5173", "http://10.100.18.21:5173", builder.Configuration["AppSettings:Domain"])
         .AllowAnyHeader()
         .AllowAnyMethod()
         .AllowCredentials();
@@ -117,7 +117,6 @@ app.UseCors("reactApp");
 
 app.UseAuthentication();
 
-
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
@@ -131,7 +130,6 @@ app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/GWMBackend/swagger.json", "GWM
 //{
 //    app.UseSwaggerUI(c => c.SwaggerEndpoint("/api/swagger/GWMBackend/swagger.json", "GWMBackend v1"));
 //}
-
 
 
 app.UseHttpsRedirection();

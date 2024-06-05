@@ -1,6 +1,10 @@
 ﻿using Amazon.S3;
 using Amazon.S3.Model;
+using GWMBackend.Core.Helpers;
 using GWMBackend.Core.Model.Base;
+using GWMBackend.Data.Base;
+using GWMBackend.Domain.DTOs;
+using GWMBackend.Domain.Models;
 using GWMBackend.Service.Remote.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
@@ -10,14 +14,17 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using static GWMBackend.Domain.DTOs.PhotoDTO;
 
 namespace GWMBackend.Service.Remote.Service
 {
     public class PhotoService : IPhotoService
     {
         private readonly AppSettings _appSettings;
-        public PhotoService(IOptions<AppSettings> appSettings)
+        IRepositoryWrapper _repository;
+        public PhotoService(IRepositoryWrapper repository, IOptions<AppSettings> appSettings)
         {
+            _repository = repository;
             _appSettings = appSettings.Value;
         }
 
@@ -85,6 +92,98 @@ namespace GWMBackend.Service.Remote.Service
             {
                 return ($"Error: {e.Message}");
             }
+
+        }
+        public void DeleteById(long id)
+        {
+            _repository.picture.DeleteById(id);
+        }
+
+        public List<Picture> FindByFolderId(long id)
+        {
+            return _repository.picture.FindByFolderId(id);
+        }
+        public PictureResponse FindById(long? id)
+        {
+            return _repository.picture.FindById(id);
+        }
+
+        public Picture GetByAddress(string address)
+        {
+            return _repository.picture.GetByAddress(address);
+        }
+
+        public UploadPic Upload(string objectId, string picture, bool thumbnail, int? id)
+        {
+            List<string> _imagName = objectId.Split(".").ToList();
+            string imgName = null;
+            for (int i = 0; i < _imagName.Count - 1; i++)
+            {
+                imgName = imgName + _imagName[i] + ".";
+            }
+            string path = Path.Combine(_appSettings.SaveImagePath + "\\");
+
+            if (id == 1)
+            {
+                path = Path.Combine(_appSettings.SaveImagePath + "\\Products\\");
+            }
+
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+            string Address = null;
+            string thumbnailAddress = null;
+            string imageName = null;
+            string imageNameThumb = null;
+            if (thumbnail == false)
+            {
+                imageName = Convertor.Base64ToImage(picture, path, objectId.Split(".")[0]);
+                Address = null;
+            }
+            if (thumbnail == true)
+            {
+                imageNameThumb = Convertor.Base64ToThumbnail(picture, path, objectId.Split(".")[0] + "thumb");
+                thumbnailAddress = null;
+            }
+            if (thumbnail == false)
+            {
+
+                Address = _appSettings.PublishImagePath + "//" + imageName;
+
+                if (id == 1)
+                {
+                    Address = _appSettings.PublishImagePath + "//Products//" + imageName;
+                }
+
+            }
+            if (thumbnail == true)
+            {
+
+                thumbnailAddress = _appSettings.PublishImagePath + "//" + imageNameThumb;
+
+                if (id == 1)
+                {
+                    thumbnailAddress = _appSettings.PublishImagePath + "//Products//" + imageNameThumb;
+                }
+            }
+            if (imageName == "crash" || imageNameThumb == "crash")
+            {
+                return new UploadPic
+                {
+                    Address = null,
+                    Id = 0
+                };
+            }
+            return new UploadPic
+            {
+                Address = Address,
+                ThumpAddress = thumbnailAddress,
+                Id = _repository.picture.Add(new Picture
+                {
+                    Address = Address,
+                    ImageName = imageName,
+                    Thumbnail = thumbnailAddress
+                })
+            };
 
         }
     }
