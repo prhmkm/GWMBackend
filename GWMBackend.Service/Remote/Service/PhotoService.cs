@@ -147,22 +147,22 @@ namespace GWMBackend.Service.Remote.Service
             if (thumbnail == false)
             {
 
-                Address = _appSettings.PublishImagePath + "//" + imageName;
+                Address = _appSettings.PublishImagePath + "/" + imageName;
 
                 if (id == 1)
                 {
-                    Address = _appSettings.PublishImagePath + "//Products//" + imageName;
+                    Address = _appSettings.PublishImagePath + "/Products/" + imageName;
                 }
 
             }
             if (thumbnail == true)
             {
 
-                thumbnailAddress = _appSettings.PublishImagePath + "//" + imageNameThumb;
+                thumbnailAddress = _appSettings.PublishImagePath + "/" + imageNameThumb;
 
                 if (id == 1)
                 {
-                    thumbnailAddress = _appSettings.PublishImagePath + "//Products//" + imageNameThumb;
+                    thumbnailAddress = _appSettings.PublishImagePath + "/Products/" + imageNameThumb;
                 }
             }
             if (imageName == "crash" || imageNameThumb == "crash")

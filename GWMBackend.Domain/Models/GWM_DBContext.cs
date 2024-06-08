@@ -23,6 +23,7 @@ namespace GWMBackend.Domain.Models
         public virtual DbSet<Order> Orders { get; set; } = null!;
         public virtual DbSet<Picture> Pictures { get; set; } = null!;
         public virtual DbSet<Product> Products { get; set; } = null!;
+        public virtual DbSet<Role> Roles { get; set; } = null!;
         public virtual DbSet<ShopItem> ShopItems { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
 
@@ -31,7 +32,7 @@ namespace GWMBackend.Domain.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("data source=.; initial catalog=GWM_DB;User Id=sa;Password=P@$w0Rd!(2024)@gWm;");
+                optionsBuilder.UseSqlServer("data source=195.248.242.221; initial catalog=GWM_DB;User Id=sa;Password=P@$w0Rd!(2024)@gWm;TrustServerCertificate=true;");
             }
         }
 
@@ -110,11 +111,11 @@ namespace GWMBackend.Domain.Models
 
             modelBuilder.Entity<Picture>(entity =>
             {
-                entity.Property(e => e.Address).HasMaxLength(50);
+                entity.Property(e => e.Address).HasMaxLength(80);
 
                 entity.Property(e => e.ImageName).HasMaxLength(30);
 
-                entity.Property(e => e.Thumbnail).HasMaxLength(50);
+                entity.Property(e => e.Thumbnail).HasMaxLength(80);
             });
 
             modelBuilder.Entity<Product>(entity =>
@@ -132,6 +133,19 @@ namespace GWMBackend.Domain.Models
                 entity.Property(e => e.Title).HasMaxLength(50);
             });
 
+            modelBuilder.Entity<Role>(entity =>
+            {
+                entity.Property(e => e.CreationDateTime)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.IsActive)
+                    .IsRequired()
+                    .HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.Title).HasMaxLength(50);
+            });
+
             modelBuilder.Entity<ShopItem>(entity =>
             {
                 entity.Property(e => e.CreationDatetime)
@@ -141,13 +155,9 @@ namespace GWMBackend.Domain.Models
 
             modelBuilder.Entity<User>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.Property(e => e.Email).HasMaxLength(25);
 
                 entity.Property(e => e.FirstName).HasMaxLength(15);
-
-                entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.IsActive)
                     .IsRequired()
@@ -159,9 +169,9 @@ namespace GWMBackend.Domain.Models
 
                 entity.Property(e => e.LastName).HasMaxLength(15);
 
-                entity.Property(e => e.Password).HasMaxLength(50);
+                entity.Property(e => e.MobileNumber).HasMaxLength(15);
 
-                entity.Property(e => e.PhoneNumber).HasMaxLength(15);
+                entity.Property(e => e.Password).HasMaxLength(50);
 
                 entity.Property(e => e.RefreshToken).HasMaxLength(50);
 

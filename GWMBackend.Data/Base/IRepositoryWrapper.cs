@@ -10,6 +10,7 @@ namespace GWMBackend.Data.Base
         IShopItemRepository shopItem { get; }
         ICustomerRepository customer { get; }   
         IPictureRepository picture { get; }
+        IUserRepository user { get; }
         void Save();
     }
 }

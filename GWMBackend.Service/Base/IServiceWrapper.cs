@@ -14,6 +14,7 @@ namespace GWMBackend.Service.Base
         IShopItemService shopItem { get; }
         ICustomerService customer { get; }
         IPhotoService photo { get; }
+        IUserService user { get; }
         void Save();
     }
 }

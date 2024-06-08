@@ -4,30 +4,35 @@ using GWMBackend.Core.Model.Base;
 using GWMBackend.Domain.Models;
 using GWMBackend.Service.Base;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Net;
 using System.Security.Claims;
 using static GWMBackend.Domain.DTOs.CustomerDTO;
+using static GWMBackend.Domain.DTOs.EmailDTO;
 using static GWMBackend.Domain.DTOs.ProductDTO;
+using static GWMBackend.Domain.DTOs.UserDTO;
 
 namespace GWMBackend.Api.Controllers
 {
     [Authorize]
-    [MyAthurizeFilter]
     [Route("api/[controller]")]
     [ApiController]
     public class AdminController : Controller
     {
         IServiceWrapper _service;
+        GWM_DBContext _repositoryContext;
         private readonly AppSettings _appSettings;
         private static Random random = new Random();
 
-        public AdminController(IServiceWrapper service, IOptions<AppSettings> appSettings)
+        public AdminController(IServiceWrapper service, IOptions<AppSettings> appSettings, GWM_DBContext repositoryContext)
         {
             _appSettings = appSettings.Value;
             _service = service;
+            _repositoryContext = repositoryContext;
         }
+        [MyAthurizeFilter]
         [HttpGet("Order/BOGetAllOrders")]
         public IActionResult GetAllOrders()
         {
@@ -71,6 +76,7 @@ namespace GWMBackend.Api.Controllers
                 });
             }
         }
+        [MyAthurizeFilter]
         [HttpGet("Customer/BOGetAllNewCustomers")]
         public IActionResult BOGetAllNewCustomers()
         {
@@ -114,6 +120,7 @@ namespace GWMBackend.Api.Controllers
                 });
             }
         }
+        [MyAthurizeFilter]
         [HttpGet("Customer/BOGetAllRegisteredCustomers")]
         public IActionResult BOGetAllRegisteredCustomers()
         {
@@ -157,6 +164,7 @@ namespace GWMBackend.Api.Controllers
                 });
             }
         }
+        [MyAthurizeFilter]
         [HttpPost("Customer/BOAddCustomer")]
         public IActionResult AddCustomer([FromBody] AddCustomer addCustomer)
         {
@@ -295,6 +303,7 @@ namespace GWMBackend.Api.Controllers
                 });
             }
         }
+        [MyAthurizeFilter]
         [HttpPost("Customer/BOEditCustomer")]
         public IActionResult EditCustomer([FromBody] EditCustomer editCustomer)
         {
@@ -446,6 +455,7 @@ namespace GWMBackend.Api.Controllers
                 });
             }
         }
+        [MyAthurizeFilter]
         [HttpGet("Product/BOGetAllProducts")]
         public IActionResult BOGetAllProducts()
         {
@@ -489,6 +499,7 @@ namespace GWMBackend.Api.Controllers
 
 
         }
+        [MyAthurizeFilter]
         [HttpPost("Product/AddProduct")]
         public IActionResult AddProduct([FromBody] AddProduct addProduct)
         {
@@ -594,6 +605,7 @@ namespace GWMBackend.Api.Controllers
                 });
             }
         }
+        [MyAthurizeFilter]
         [HttpPost("Product/EditProduct")]
         public IActionResult EditProduct([FromBody] EditProduct editProduct)
         {
@@ -721,5 +733,245 @@ namespace GWMBackend.Api.Controllers
                 });
             }
         }
+        [AllowAnonymous]
+        [HttpPost("auth/Login")]
+        public IActionResult Login([FromBody] Domain.DTOs.UserDTO.LoginRequest _singIn)
+        {
+            try
+            {
+                //----------------------------------------------------------------------------------Check parameters
+                if (string.IsNullOrEmpty(_singIn.Username))
+                {
+                    return BadRequest(new
+                    {
+                        TimeStamp = DateTime.Now,
+                        ResponseCode = HttpStatusCode.BadRequest,
+                        Message = "Username or email is required",
+                        Data = new { },
+                        Error = new { }
+                    });
+                }
+                if (string.IsNullOrEmpty(_singIn.Password))
+                {
+                    return BadRequest(new
+                    {
+                        TimeStamp = DateTime.Now,
+                        ResponseCode = HttpStatusCode.BadRequest,
+                        Message = "Password is required",
+                        Data = new { },
+                        Error = new { }
+                    });
+                }
+                //----------------------------------------------------------------------------------Check parameters
+
+                //----------------------------------------------------------------------------------Find user                
+
+
+                User user = _service.user.LoginUser(_singIn.Username, _singIn.Password);
+
+                if (user == null)
+                {
+                    return NotFound(new
+                    {
+                        TimeStamp = DateTime.Now,
+                        ResponseCode = HttpStatusCode.NotFound,
+                        Message = "The username or password is incorrect.",
+                        Data = new { },
+                        Error = new { }
+                    });
+                }
+                if (user.IsActive == false)
+                {
+                    return BadRequest(new
+                    {
+                        TimeStamp = DateTime.Now,
+                        ResponseCode = HttpStatusCode.BadRequest,
+                        Message = "The desired user is disabled.",
+                        Data = new { },
+                        Error = new { }
+                    });
+                }
+
+                if (user.RoleId != 0)
+                {
+                    return BadRequest(new
+                    {
+                        TimeStamp = DateTime.Now,
+                        ResponseCode = HttpStatusCode.BadRequest,
+                        Message = "The desired user is not admin.",
+                        Data = new { },
+                        Error = new { }
+                    });
+                }
+
+                var token = _service.user.GenToken(user);
+
+                var refreshToken = "";
+                if (_singIn.RememberMe)
+                {
+                    Random random = new Random();
+                    refreshToken = new string(Enumerable.Repeat("abcdefghijklmnopqrstuvwxyz0123456789", 50).Select(s => s[random.Next(s.Length)]).ToArray());
+                }
+                user.RememberMe = _singIn.RememberMe;
+                user.RefreshToken = refreshToken;
+                _service.user.EditUser(user);
+
+                LoginResponse data = new LoginResponse
+                {
+                    Id = user.Id,
+                    CreationDateTime = user.JoinDate,
+                    DisplayName = user.FirstName + " " + user.LastName,
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    MobileNumber = user.MobileNumber,
+                    RoleId = (int)user.RoleId,
+                    RoleTitle = _repositoryContext.Roles.FirstOrDefault(s => s.Id == user.RoleId).Title,
+                    Token = token.AccessToken,
+                    RefreshToken = refreshToken,
+                    UserName = user.UserName
+                };
+                return Ok(new
+                {
+                    TimeStamp = DateTime.Now,
+                    ResponseCode = HttpStatusCode.NotFound,
+                    Message = "Login was successful.",
+                    Data = new { data },
+                    Error = new { }
+                });
+                //----------------------------------------------------------------------------------Find user
+            }
+            catch (Exception ex)
+            {
+                return Ok(new
+                {
+                    TimeStamp = DateTime.Now,
+                    ResponseCode = HttpStatusCode.InternalServerError,
+                    Message = "An internal server error has occurred",
+                    Data = new { Response = ex.ToString() },
+                    Error = new { }
+                });
+            }
+
+        }
+        [AllowAnonymous]
+        [HttpPost("RefreshToken")]
+        public IActionResult RefreshToken([FromBody] RefreshTokenRequest _refreshTokenRequest)
+        {
+            try
+            {
+                //----------------------------------------------------------------------------------Check parameters
+                if (_refreshTokenRequest is null)
+                {
+                    return BadRequest(new
+                    {
+                        TimeStamp = DateTime.Now,
+                        ResponseCode = HttpStatusCode.BadRequest,
+                        Message = "The received data is not valid",
+                        Data = new { },
+                        Error = new { }
+                    });
+                }
+                if (string.IsNullOrEmpty(_refreshTokenRequest.RefreshToken))
+                {
+                    return BadRequest(new
+                    {
+                        TimeStamp = DateTime.Now,
+                        ResponseCode = HttpStatusCode.BadRequest,
+                        Message = "Refresh Token amount is required",
+                        Data = new { },
+                        Error = new { }
+                    });
+                }
+                if (string.IsNullOrEmpty(_refreshTokenRequest.Username))
+                {
+                    return BadRequest(new
+                    {
+                        TimeStamp = DateTime.Now,
+                        ResponseCode = HttpStatusCode.BadRequest,
+                        Message = "Username is required",
+                        Data = new { },
+                        Error = new { }
+                    });
+                }
+                //----------------------------------------------------------------------------------Check parameters
+                //----------------------------------------------------------------------------------Check Customer Exist
+                User user = _service.user.GetUserByUsername(_refreshTokenRequest.Username);
+
+                if (user == null)
+                {
+                    return NotFound(new
+                    {
+                        TimeStamp = DateTime.Now,
+                        ResponseCode = HttpStatusCode.NotFound,
+                        Message = "The username or password is incorrect.",
+                        Data = new { },
+                        Error = new { }
+                    });
+                }
+                if (user.IsActive == false)
+                {
+                    return BadRequest(new
+                    {
+                        TimeStamp = DateTime.Now,
+                        ResponseCode = HttpStatusCode.BadRequest,
+                        Message = "The desired user is disabled.",
+                        Data = new { },
+                        Error = new { }
+                    });
+                }
+                if (user.RefreshToken != _refreshTokenRequest.RefreshToken || (user.RememberMe == false))
+                {
+                    return BadRequest(new
+                    {
+                        TimeStamp = DateTime.Now,
+                        ResponseCode = HttpStatusCode.BadRequest,
+                        Message = "Refresh token is invalid.",
+                        Data = new { },
+                        Error = new { }
+                    });
+                }
+                var token = _service.user.GenToken(user);
+                var refreshToken = "";
+                Random random = new Random();
+                refreshToken = new string(Enumerable.Repeat("abcdefghijklmnopqrstuvwxyz0123456789", 50).Select(s => s[random.Next(s.Length)]).ToArray());
+                user.RefreshToken = refreshToken;
+                _service.user.EditUser(user);
+
+                LoginResponse data = new LoginResponse
+                {
+                    DisplayName = user.FirstName + " " + user.LastName,
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    MobileNumber = user.MobileNumber,
+                    RoleId = (int)user.RoleId,
+                    Token = token.AccessToken,
+                    RefreshToken = refreshToken,
+                    UserName = user.UserName
+                };
+                return Ok(new
+                {
+                    TimeStamp = DateTime.Now,
+                    ResponseCode = HttpStatusCode.OK,
+                    Message = "The token was successfully retrieved.",
+                    Data = new { data }, 
+                    Error = new { }
+                });
+                //----------------------------------------------------------------------------------Check Customer Exist
+            }
+            catch (Exception ex)
+            {
+                return Ok(new
+                {
+                    TimeStamp = DateTime.Now,
+                    ResponseCode = HttpStatusCode.InternalServerError,
+                    Message = "An internal server error has occurred",
+                    Data = new { Response = ex.ToString() },
+                    Error = new { }
+                });
+            }
+        }
+
     }
 }

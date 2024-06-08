@@ -33,6 +33,8 @@ namespace GWMBackend.Service.Base
 
         public IPhotoService photo => new PhotoService(_repository, _appSettings);
 
+        public IUserService user => new UserService(_repository, _appSettings);
+
         public void Save()
         {
             _repository.Save();

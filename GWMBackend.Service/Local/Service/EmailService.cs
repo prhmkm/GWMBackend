@@ -41,7 +41,7 @@ namespace GWMBackend.Service.Local.Service
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, customer.FirstName),
+                    new Claim(ClaimTypes.Name, customer.FirstName + " " + customer.LastName),
                     new Claim(ClaimTypes.Role, customer.RoleId.ToString()),
                     new Claim(ClaimTypes.NameIdentifier, customer.Id.ToString()),
                 }),
