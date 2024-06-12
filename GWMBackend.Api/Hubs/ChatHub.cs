@@ -85,12 +85,12 @@ namespace GWMBackend.Api.Hubs
                     if (_chatroomUsers > 1)
                     {
                         await Clients.Group(_user.ChatRoom)
-                            .SendAsync("SendMessage", _user.Username, msg, DateTime.Now.ToString("hh:mm tt"));
+                            .SendAsync("SendMessage", _user.Username, msg, _user.ChatRoom, DateTime.Now.ToString("hh:mm tt"));
                     }
                     else
                     {
                         await Clients.Groups("admins", _user.ChatRoom)
-                            .SendAsync("SendMessage", _user.Username, msg + " form chatroom " + _user.ChatRoom , DateTime.Now.ToString("hh:mm tt"));
+                            .SendAsync("SendMessage", _user.Username, msg, _user.ChatRoom, DateTime.Now.ToString("hh:mm tt"));
                     }
 
                     //save it to database
