@@ -40,7 +40,7 @@ namespace GWMBackend.Api.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -128,7 +128,7 @@ namespace GWMBackend.Api.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -172,7 +172,7 @@ namespace GWMBackend.Api.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -184,7 +184,7 @@ namespace GWMBackend.Api.Controllers
 
                 if (string.IsNullOrEmpty(addCustomer.FirstName))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -196,7 +196,7 @@ namespace GWMBackend.Api.Controllers
 
                 if (string.IsNullOrEmpty(addCustomer.LastName))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -208,7 +208,7 @@ namespace GWMBackend.Api.Controllers
 
                 if (string.IsNullOrEmpty(addCustomer.PhoneNumber))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -220,7 +220,7 @@ namespace GWMBackend.Api.Controllers
 
                 if (addCustomer.PhoneNumber.Length != 11)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -232,7 +232,7 @@ namespace GWMBackend.Api.Controllers
 
                 if (string.IsNullOrEmpty(addCustomer.RestaurantName))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -244,7 +244,7 @@ namespace GWMBackend.Api.Controllers
 
                 if (string.IsNullOrEmpty(addCustomer.ZipCode))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -256,7 +256,7 @@ namespace GWMBackend.Api.Controllers
 
                 if (string.IsNullOrEmpty(addCustomer.Address))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -311,7 +311,7 @@ namespace GWMBackend.Api.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -323,7 +323,7 @@ namespace GWMBackend.Api.Controllers
 
                 if (editCustomer.Id == 0)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -337,7 +337,7 @@ namespace GWMBackend.Api.Controllers
 
                 if (string.IsNullOrEmpty(editCustomer.FirstName))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -349,7 +349,7 @@ namespace GWMBackend.Api.Controllers
 
                 if (string.IsNullOrEmpty(editCustomer.LastName))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -361,7 +361,7 @@ namespace GWMBackend.Api.Controllers
 
                 if (string.IsNullOrEmpty(editCustomer.PhoneNumber))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -373,7 +373,7 @@ namespace GWMBackend.Api.Controllers
 
                 if (editCustomer.PhoneNumber.Length != 11)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -385,7 +385,7 @@ namespace GWMBackend.Api.Controllers
 
                 if (string.IsNullOrEmpty(editCustomer.RestaurantName))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -397,7 +397,7 @@ namespace GWMBackend.Api.Controllers
 
                 if (string.IsNullOrEmpty(editCustomer.ZipCode))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -409,7 +409,7 @@ namespace GWMBackend.Api.Controllers
 
                 if (string.IsNullOrEmpty(editCustomer.Address))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -463,7 +463,7 @@ namespace GWMBackend.Api.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -507,7 +507,7 @@ namespace GWMBackend.Api.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -520,7 +520,7 @@ namespace GWMBackend.Api.Controllers
 
                 if (string.IsNullOrEmpty(addProduct.Title))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -532,7 +532,7 @@ namespace GWMBackend.Api.Controllers
 
                 if (string.IsNullOrEmpty(addProduct.Description))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -544,7 +544,7 @@ namespace GWMBackend.Api.Controllers
 
                 if (addProduct.Inventory == null)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -556,7 +556,7 @@ namespace GWMBackend.Api.Controllers
 
                 if (string.IsNullOrEmpty(addProduct.Price))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -613,7 +613,7 @@ namespace GWMBackend.Api.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -625,7 +625,7 @@ namespace GWMBackend.Api.Controllers
 
                 if (editProduct.Id == 0)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -639,7 +639,7 @@ namespace GWMBackend.Api.Controllers
 
                 if (string.IsNullOrEmpty(editProduct.Title))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -651,7 +651,7 @@ namespace GWMBackend.Api.Controllers
 
                 if (string.IsNullOrEmpty(editProduct.Description))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -663,7 +663,7 @@ namespace GWMBackend.Api.Controllers
 
                 if (editProduct.Inventory == null)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -675,7 +675,7 @@ namespace GWMBackend.Api.Controllers
 
                 if (string.IsNullOrEmpty(editProduct.Price))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -742,7 +742,7 @@ namespace GWMBackend.Api.Controllers
                 //----------------------------------------------------------------------------------Check parameters
                 if (string.IsNullOrEmpty(_singIn.Username))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -753,7 +753,7 @@ namespace GWMBackend.Api.Controllers
                 }
                 if (string.IsNullOrEmpty(_singIn.Password))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -771,7 +771,7 @@ namespace GWMBackend.Api.Controllers
 
                 if (user == null)
                 {
-                    return NotFound(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.NotFound,
@@ -782,7 +782,7 @@ namespace GWMBackend.Api.Controllers
                 }
                 if (user.IsActive == false)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -794,7 +794,7 @@ namespace GWMBackend.Api.Controllers
 
                 if (user.RoleId != 0)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -834,7 +834,7 @@ namespace GWMBackend.Api.Controllers
                 return Ok(new
                 {
                     TimeStamp = DateTime.Now,
-                    ResponseCode = HttpStatusCode.NotFound,
+                    ResponseCode = HttpStatusCode.OK,
                     Message = "Login was successful.",
                     Data = new { data },
                     Error = new { }
@@ -863,7 +863,7 @@ namespace GWMBackend.Api.Controllers
                 //----------------------------------------------------------------------------------Check parameters
                 if (_refreshTokenRequest is null)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -874,7 +874,7 @@ namespace GWMBackend.Api.Controllers
                 }
                 if (string.IsNullOrEmpty(_refreshTokenRequest.RefreshToken))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -885,7 +885,7 @@ namespace GWMBackend.Api.Controllers
                 }
                 if (string.IsNullOrEmpty(_refreshTokenRequest.Username))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -900,7 +900,7 @@ namespace GWMBackend.Api.Controllers
 
                 if (user == null)
                 {
-                    return NotFound(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.NotFound,
@@ -911,7 +911,7 @@ namespace GWMBackend.Api.Controllers
                 }
                 if (user.IsActive == false)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -922,7 +922,7 @@ namespace GWMBackend.Api.Controllers
                 }
                 if (user.RefreshToken != _refreshTokenRequest.RefreshToken || (user.RememberMe == false))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,

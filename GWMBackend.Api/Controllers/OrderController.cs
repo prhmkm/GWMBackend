@@ -32,7 +32,7 @@ namespace GWMBackend.Api.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -46,7 +46,7 @@ namespace GWMBackend.Api.Controllers
 
                 if (_service.order.CheckOrders(Convert.ToInt32(userId)))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -59,7 +59,7 @@ namespace GWMBackend.Api.Controllers
 
                 if (string.IsNullOrEmpty(order.PickupDate))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -72,7 +72,7 @@ namespace GWMBackend.Api.Controllers
 
                 if (order.BucketAmontId > 0)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -89,7 +89,7 @@ namespace GWMBackend.Api.Controllers
                     {
                         if (item.Id == 0 || item.Quantity == 0)
                         {
-                            return BadRequest(new
+                            return Ok(new
                             {
                                 TimeStamp = DateTime.Now,
                                 ResponseCode = HttpStatusCode.BadRequest,
@@ -155,7 +155,7 @@ namespace GWMBackend.Api.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,

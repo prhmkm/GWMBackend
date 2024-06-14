@@ -28,7 +28,7 @@ namespace GWMBackend.Api.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
@@ -60,9 +60,6 @@ namespace GWMBackend.Api.Controllers
                     Error = new { Response = ex.ToString() }
                 });
             }
-
-
-
         }
     }
 }
