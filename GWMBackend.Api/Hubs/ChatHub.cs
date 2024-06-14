@@ -13,61 +13,66 @@ namespace GWMBackend.Api.Hubs
         }
         public async Task JoinToChatRoom(UserConnection conn)
         {
-            if (conn.ChatRoom != null && conn.ChatRoom != "")
+            if (conn.UserName != null && conn.UserName != "")
             {
-                await Groups.AddToGroupAsync(Context.ConnectionId, conn.ChatRoom);
 
-                var _user = _repositoryContext.HubConnections.FirstOrDefault(s => (s.ConnectionId == Context.ConnectionId || s.Username == conn.UserName));
 
-                if (_user == null)
+                if (conn.ChatRoom != null && conn.ChatRoom != "")
                 {
-                    _repositoryContext.HubConnections.Add(new HubConnection
+                    await Groups.AddToGroupAsync(Context.ConnectionId, conn.ChatRoom);
+
+                    var _user = _repositoryContext.HubConnections.FirstOrDefault(s => (s.ConnectionId == Context.ConnectionId || s.Username == conn.UserName));
+
+                    if (_user == null)
                     {
-                        ConnectionId = Context.ConnectionId,
-                        Username = conn.UserName,
-                        ChatRoom = conn.ChatRoom
-                    });
-                    _repositoryContext.SaveChanges();
+                        _repositoryContext.HubConnections.Add(new HubConnection
+                        {
+                            ConnectionId = Context.ConnectionId,
+                            Username = conn.UserName,
+                            ChatRoom = conn.ChatRoom
+                        });
+                        _repositoryContext.SaveChanges();
+                    }
+                    else
+                    {
+                        _user.Username = conn.UserName;
+                        _user.ChatRoom = conn.ChatRoom;
+                        _user.ConnectionId = Context.ConnectionId;
+                        _repositoryContext.HubConnections.Update(_user);
+                        _repositoryContext.SaveChanges();
+                    }
+
+                    await Clients.Group(conn.ChatRoom)
+                        .SendAsync("JoinToChatRoom", "main-admin", $"{conn.UserName} has joined {conn.ChatRoom} at {DateTime.Now.ToString("hh:mm tt")}");
                 }
                 else
                 {
-                    _user.Username = conn.UserName;
-                    _user.ChatRoom = conn.ChatRoom;
-                    _user.ConnectionId = Context.ConnectionId;
-                    _repositoryContext.HubConnections.Update(_user);
-                    _repositoryContext.SaveChanges();
-                }
+                    await Groups.AddToGroupAsync(Context.ConnectionId, conn.UserName + "-chatroom");
 
-                await Clients.Group(conn.ChatRoom)
-                    .SendAsync("JoinToChatRoom", "main-admin", $"{conn.UserName} has joined {conn.ChatRoom} at {DateTime.Now.ToString("hh:mm tt")}");
-            }
-            else
-            {
-                await Groups.AddToGroupAsync(Context.ConnectionId, conn.UserName + "-chatroom");
+                    var _user = _repositoryContext.HubConnections.FirstOrDefault(s => (s.ConnectionId == Context.ConnectionId || s.Username == conn.UserName));
 
-                var _user = _repositoryContext.HubConnections.FirstOrDefault(s => (s.ConnectionId == Context.ConnectionId || s.Username == conn.UserName));
-
-                if (_user == null)
-                {
-                    _repositoryContext.HubConnections.Add(new HubConnection
+                    if (_user == null)
                     {
-                        ConnectionId = Context.ConnectionId,
-                        Username = conn.UserName,
-                        ChatRoom = conn.UserName + "-chatroom"
-                    });
-                    _repositoryContext.SaveChanges();
-                }
-                else
-                {
-                    _user.Username = conn.UserName;
-                    _user.ChatRoom = conn.UserName + "-chatroom";
-                    _user.ConnectionId = Context.ConnectionId;
-                    _repositoryContext.HubConnections.Update(_user);
-                    _repositoryContext.SaveChanges();
-                }
+                        _repositoryContext.HubConnections.Add(new HubConnection
+                        {
+                            ConnectionId = Context.ConnectionId,
+                            Username = conn.UserName,
+                            ChatRoom = conn.UserName + "-chatroom"
+                        });
+                        _repositoryContext.SaveChanges();
+                    }
+                    else
+                    {
+                        _user.Username = conn.UserName;
+                        _user.ChatRoom = conn.UserName + "-chatroom";
+                        _user.ConnectionId = Context.ConnectionId;
+                        _repositoryContext.HubConnections.Update(_user);
+                        _repositoryContext.SaveChanges();
+                    }
 
-                await Clients.Group(conn.UserName + "-chatroom")
-                    .SendAsync("JoinToChatRoom", "main-admin", $"{conn.UserName} has joined {conn.UserName + "-chatroom"}  at {DateTime.Now.ToString("hh:mm tt")}");
+                    await Clients.Group(conn.UserName + "-chatroom")
+                        .SendAsync("JoinToChatRoom", "main-admin", $"{conn.UserName} has joined {conn.UserName + "-chatroom"}  at {DateTime.Now.ToString("hh:mm tt")}");
+                }
             }
             
         }
