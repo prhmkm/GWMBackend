@@ -41,8 +41,8 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Unknown error",
-                        Data = new { },
-                        Error = new { ErrorMsg = ModelState }
+                        Value = new { },
+                        Error = new { }
                     });
                 }
 
@@ -53,8 +53,8 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Please enter your email address.",
-                        Data = new { },
-                        Error = new { ErrorMsg = ModelState }
+                        Value = new { },
+                        Error = new { }
                     });
                 }
 
@@ -75,7 +75,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.OK,
                         Message = "Your verification code was sent successfully!",
-                        Data = new { res.Id },
+                        Value = new { Response = res.Id },
                         Error = new { }
                     });
                 }
@@ -85,7 +85,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.BadRequest,
                     Message = "The Email is not valid",
-                    Data = new { },
+                    Value = new { },
                     Error = new { }
                 });
 
@@ -97,7 +97,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.InternalServerError,
                     Message = "An internal server error has occurred",
-                    Data = new { },
+                    Value = new { },
                     Error = new { Response = ex.ToString() }
                 });
             }
@@ -115,8 +115,8 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Unknown error",
-                        Data = new { },
-                        Error = new { ErrorMsg = ModelState }
+                        Value = new { },
+                        Error = new { }
                     });
                 }
 
@@ -127,8 +127,8 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Please enter customer id.",
-                        Data = new { },
-                        Error = new { ErrorMsg = ModelState }
+                        Value = new { },
+                        Error = new { }
                     });
                 }
 
@@ -139,8 +139,8 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Please enter the code we send you.",
-                        Data = new { },
-                        Error = new { ErrorMsg = ModelState }
+                        Value = new { },
+                        Error = new { }
                     });
                 }
 
@@ -194,7 +194,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.BadRequest,
                     Message = ("Verification code not valid."),
-                    Data = new { },
+                    Value = new { },
                     Error = new { }
                 });
 
@@ -206,7 +206,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.InternalServerError,
                     Message = "An internal server error has occurred",
-                    Data = new { },
+                    Value = new { },
                     Error = new { Response = ex.ToString() }
                 });
             }

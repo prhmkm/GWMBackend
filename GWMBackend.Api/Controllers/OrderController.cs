@@ -37,7 +37,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Unknown error",
-                        Data = new { },
+                        Value = new { },
                         Error = new { ErrorMsg = ModelState }
                     });
                 }
@@ -51,7 +51,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "This user has an ongoing order",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -64,7 +64,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Pickup date is not valid",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -77,7 +77,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "BucketAmont is not valid",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -94,7 +94,7 @@ namespace GWMBackend.Api.Controllers
                                 TimeStamp = DateTime.Now,
                                 ResponseCode = HttpStatusCode.BadRequest,
                                 Message = "Product detail is not valid",
-                                Data = new { },
+                                Value = new { },
                                 Error = new { }
                             });
                         }
@@ -128,7 +128,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.OK,
                     Message = "Order has been submitted succesfully!",
-                    Data = new { res },
+                    Value = new { Response = res },
                     Error = new { }
                 });
             }
@@ -139,7 +139,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.InternalServerError,
                     Message = "An internal server error has occurred",
-                    Data = new { },
+                    Value = new { },
                     Error = new { Response = ex.ToString() }
                 });
             }
@@ -160,7 +160,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Unknown error",
-                        Data = new { },
+                        Value = new { },
                         Error = new { ErrorMsg = ModelState }
                     });
                 }
@@ -172,7 +172,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.OK,
                     Message = "Bucket amounts have been sent succesfully!",
-                    Data = new { res },
+                    Value = new { Response = res },
                     Error = new { }
                 });
             }
@@ -183,7 +183,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.InternalServerError,
                     Message = "An internal server error has occurred",
-                    Data = new { },
+                    Value = new { },
                     Error = new { Response = ex.ToString() }
                 });
             }

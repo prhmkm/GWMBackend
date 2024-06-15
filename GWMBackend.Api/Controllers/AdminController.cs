@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Nancy.Diagnostics;
 using System.Net;
 using System.Security.Claims;
 using static GWMBackend.Domain.DTOs.CustomerDTO;
@@ -45,7 +46,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Unknown error",
-                        Data = new { },
+                        Value = new { },
                         Error = new { ErrorMsg = ModelState }
                     });
                 }
@@ -58,7 +59,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.OK,
                     Message = "Order list send successfully",
-                    Data = new { res },
+                    Value = new { Response = res },
                     Error = new { }
                 });
 
@@ -71,7 +72,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.InternalServerError,
                     Message = "An internal server error has occurred",
-                    Data = new { },
+                    Value = new { },
                     Error = new { Response = ex.ToString() }
                 });
             }
@@ -89,7 +90,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Unknown error",
-                        Data = new { },
+                        Value = new { },
                         Error = new { ErrorMsg = ModelState }
                     });
                 }
@@ -102,7 +103,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.OK,
                     Message = "New customer list send successfully",
-                    Data = new { res },
+                    Value = new { Response = res },
                     Error = new { }
                 });
 
@@ -115,7 +116,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.InternalServerError,
                     Message = "An internal server error has occurred",
-                    Data = new { },
+                    Value = new { },
                     Error = new { Response = ex.ToString() }
                 });
             }
@@ -133,7 +134,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Unknown error",
-                        Data = new { },
+                        Value = new { },
                         Error = new { ErrorMsg = ModelState }
                     });
                 }
@@ -146,7 +147,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.OK,
                     Message = "Registered customer list send successfully",
-                    Data = new { res },
+                    Value = new { Response = res },
                     Error = new { }
                 });
 
@@ -159,7 +160,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.InternalServerError,
                     Message = "An internal server error has occurred",
-                    Data = new { },
+                    Value = new { },
                     Error = new { Response = ex.ToString() }
                 });
             }
@@ -177,7 +178,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Unknown error",
-                        Data = new { },
+                        Value = new { },
                         Error = new { ErrorMsg = ModelState }
                     });
                 }
@@ -189,7 +190,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "First name is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -201,7 +202,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Last name is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -213,7 +214,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Phone number is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -225,7 +226,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Phone number is not valid",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -237,7 +238,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Restaurant name is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -249,7 +250,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "ZipCode is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -261,7 +262,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Address is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -285,7 +286,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.OK,
                     Message = "New customer had added successfully",
-                    Data = new { },
+                    Value = new { },
                     Error = new { }
                 });
 
@@ -298,7 +299,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.InternalServerError,
                     Message = "An internal server error has occurred",
-                    Data = new { },
+                    Value = new { },
                     Error = new { Response = ex.ToString() }
                 });
             }
@@ -316,7 +317,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Unknown error",
-                        Data = new { },
+                        Value = new { },
                         Error = new { ErrorMsg = ModelState }
                     });
                 }
@@ -328,7 +329,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Customer ID is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -342,7 +343,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "First name is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -354,7 +355,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Last name is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -366,7 +367,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Phone number is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -378,7 +379,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Phone number is not valid",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -390,7 +391,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Restaurant name is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -402,7 +403,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "ZipCode is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -414,7 +415,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Address is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -437,7 +438,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.OK,
                     Message = $"Customer {customer.Id} had edited successfully",
-                    Data = new { },
+                    Value = new { },
                     Error = new { }
                 });
 
@@ -450,7 +451,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.InternalServerError,
                     Message = "An internal server error has occurred",
-                    Data = new { },
+                    Value = new { },
                     Error = new { Response = ex.ToString() }
                 });
             }
@@ -468,7 +469,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Unknown error",
-                        Data = new { },
+                        Value = new { },
                         Error = new { ErrorMsg = ModelState }
                     });
                 }
@@ -480,7 +481,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.OK,
                     Message = "Products list send succesfully!",
-                    Data = new { res },
+                    Value = new { Response = res },
                     Error = new { }
                 });
             }
@@ -491,7 +492,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.InternalServerError,
                     Message = "An internal server error has occurred",
-                    Data = new { },
+                    Value = new { },
                     Error = new { Response = ex.ToString() }
                 });
             }
@@ -512,7 +513,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Unknown error",
-                        Data = new { },
+                        Value = new { },
                         Error = new { ErrorMsg = ModelState }
                     });
                 }
@@ -525,7 +526,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Title is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -537,7 +538,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Description is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -549,7 +550,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Inventory is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -561,7 +562,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Price is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -587,7 +588,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.OK,
                     Message = "New product had added successfully",
-                    Data = new { },
+                    Value = new { },
                     Error = new { }
                 });
 
@@ -600,7 +601,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.InternalServerError,
                     Message = "An internal server error has occurred",
-                    Data = new { },
+                    Value = new { },
                     Error = new { Response = ex.ToString() }
                 });
             }
@@ -618,7 +619,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Unknown error",
-                        Data = new { },
+                        Value = new { },
                         Error = new { ErrorMsg = ModelState }
                     });
                 }
@@ -630,7 +631,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Product ID is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -644,7 +645,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Title is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -656,7 +657,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Description is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -668,7 +669,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Inventory is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -680,7 +681,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Price is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -715,7 +716,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.OK,
                     Message = $"Product {product.Id} had edited successfully",
-                    Data = new { },
+                    Value = new { },
                     Error = new { }
                 });
 
@@ -728,7 +729,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.InternalServerError,
                     Message = "An internal server error has occurred",
-                    Data = new { },
+                    Value = new { },
                     Error = new { Response = ex.ToString() }
                 });
             }
@@ -747,7 +748,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Username or email is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -758,7 +759,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Password is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -776,7 +777,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.NotFound,
                         Message = "The username or password is incorrect.",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -787,7 +788,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "The desired user is disabled.",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -799,7 +800,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "The desired user is not admin.",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -836,7 +837,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.OK,
                     Message = "Login was successful.",
-                    Data = new { data },
+                    Value = new { data },
                     Error = new { }
                 });
                 //----------------------------------------------------------------------------------Find user
@@ -848,7 +849,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.InternalServerError,
                     Message = "An internal server error has occurred",
-                    Data = new { Response = ex.ToString() },
+                    Value = new { Response = ex.ToString() },
                     Error = new { }
                 });
             }
@@ -868,7 +869,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "The received data is not valid",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -879,7 +880,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Refresh Token amount is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -890,7 +891,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Username is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -905,7 +906,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.NotFound,
                         Message = "The username or password is incorrect.",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -916,7 +917,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "The desired user is disabled.",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -927,7 +928,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Refresh token is invalid.",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -955,7 +956,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.OK,
                     Message = "The token was successfully retrieved.",
-                    Data = new { data }, 
+                    Value = new { Response = data },
                     Error = new { }
                 });
                 //----------------------------------------------------------------------------------Check Customer Exist
@@ -967,11 +968,10 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.InternalServerError,
                     Message = "An internal server error has occurred",
-                    Data = new { Response = ex.ToString() },
+                    Value = new { Response = ex.ToString() },
                     Error = new { }
                 });
             }
         }
-
     }
 }

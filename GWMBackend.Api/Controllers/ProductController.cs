@@ -33,7 +33,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Unknown error",
-                        Data = new { },
+                        Value = new { },
                         Error = new { ErrorMsg = ModelState }
                     });
                 }
@@ -45,7 +45,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.OK,
                     Message = "Products list send succesfully!",
-                    Data = new { res },
+                    Value = new { Response = res },
                     Error = new { }
                 });
             }
@@ -56,7 +56,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.InternalServerError,
                     Message = "An internal server error has occurred",
-                    Data = new { },
+                    Value = new { },
                     Error = new { Response = ex.ToString() }
                 });
             }
