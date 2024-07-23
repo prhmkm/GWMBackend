@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Nancy.Diagnostics;
 using System.Net;
 using System.Security.Claims;
 using static GWMBackend.Domain.DTOs.CustomerDTO;
@@ -40,12 +41,12 @@ namespace GWMBackend.Api.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Unknown error",
-                        Data = new { },
+                        Value = new { },
                         Error = new { ErrorMsg = ModelState }
                     });
                 }
@@ -58,7 +59,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.OK,
                     Message = "Order list send successfully",
-                    Data = new { res },
+                    Value = new { Response = res },
                     Error = new { }
                 });
 
@@ -71,7 +72,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.InternalServerError,
                     Message = "An internal server error has occurred",
-                    Data = new { },
+                    Value = new { },
                     Error = new { Response = ex.ToString() }
                 });
             }
@@ -89,7 +90,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Unknown error",
-                        Data = new { },
+                        Value = new { },
                         Error = new { ErrorMsg = ModelState }
                     });
                 }
@@ -102,7 +103,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.OK,
                     Message = "New customer list send successfully",
-                    Data = new { res },
+                    Value = new { Response = res },
                     Error = new { }
                 });
 
@@ -115,7 +116,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.InternalServerError,
                     Message = "An internal server error has occurred",
-                    Data = new { },
+                    Value = new { },
                     Error = new { Response = ex.ToString() }
                 });
             }
@@ -128,12 +129,12 @@ namespace GWMBackend.Api.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Unknown error",
-                        Data = new { },
+                        Value = new { },
                         Error = new { ErrorMsg = ModelState }
                     });
                 }
@@ -146,7 +147,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.OK,
                     Message = "Registered customer list send successfully",
-                    Data = new { res },
+                    Value = new { Response = res },
                     Error = new { }
                 });
 
@@ -159,7 +160,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.InternalServerError,
                     Message = "An internal server error has occurred",
-                    Data = new { },
+                    Value = new { },
                     Error = new { Response = ex.ToString() }
                 });
             }
@@ -172,96 +173,96 @@ namespace GWMBackend.Api.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Unknown error",
-                        Data = new { },
+                        Value = new { },
                         Error = new { ErrorMsg = ModelState }
                     });
                 }
 
                 if (string.IsNullOrEmpty(addCustomer.FirstName))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "First name is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
 
                 if (string.IsNullOrEmpty(addCustomer.LastName))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Last name is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
 
                 if (string.IsNullOrEmpty(addCustomer.PhoneNumber))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Phone number is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
 
                 if (addCustomer.PhoneNumber.Length != 11)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Phone number is not valid",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
 
                 if (string.IsNullOrEmpty(addCustomer.RestaurantName))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Restaurant name is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
 
                 if (string.IsNullOrEmpty(addCustomer.ZipCode))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "ZipCode is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
 
                 if (string.IsNullOrEmpty(addCustomer.Address))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Address is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -285,7 +286,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.OK,
                     Message = "New customer had added successfully",
-                    Data = new { },
+                    Value = new { },
                     Error = new { }
                 });
 
@@ -298,7 +299,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.InternalServerError,
                     Message = "An internal server error has occurred",
-                    Data = new { },
+                    Value = new { },
                     Error = new { Response = ex.ToString() }
                 });
             }
@@ -311,24 +312,24 @@ namespace GWMBackend.Api.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Unknown error",
-                        Data = new { },
+                        Value = new { },
                         Error = new { ErrorMsg = ModelState }
                     });
                 }
 
                 if (editCustomer.Id == 0)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Customer ID is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -337,84 +338,84 @@ namespace GWMBackend.Api.Controllers
 
                 if (string.IsNullOrEmpty(editCustomer.FirstName))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "First name is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
 
                 if (string.IsNullOrEmpty(editCustomer.LastName))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Last name is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
 
                 if (string.IsNullOrEmpty(editCustomer.PhoneNumber))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Phone number is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
 
                 if (editCustomer.PhoneNumber.Length != 11)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Phone number is not valid",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
 
                 if (string.IsNullOrEmpty(editCustomer.RestaurantName))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Restaurant name is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
 
                 if (string.IsNullOrEmpty(editCustomer.ZipCode))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "ZipCode is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
 
                 if (string.IsNullOrEmpty(editCustomer.Address))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Address is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -437,7 +438,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.OK,
                     Message = $"Customer {customer.Id} had edited successfully",
-                    Data = new { },
+                    Value = new { },
                     Error = new { }
                 });
 
@@ -450,7 +451,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.InternalServerError,
                     Message = "An internal server error has occurred",
-                    Data = new { },
+                    Value = new { },
                     Error = new { Response = ex.ToString() }
                 });
             }
@@ -463,12 +464,12 @@ namespace GWMBackend.Api.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Unknown error",
-                        Data = new { },
+                        Value = new { },
                         Error = new { ErrorMsg = ModelState }
                     });
                 }
@@ -480,7 +481,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.OK,
                     Message = "Products list send succesfully!",
-                    Data = new { res },
+                    Value = new { Response = res },
                     Error = new { }
                 });
             }
@@ -491,7 +492,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.InternalServerError,
                     Message = "An internal server error has occurred",
-                    Data = new { },
+                    Value = new { },
                     Error = new { Response = ex.ToString() }
                 });
             }
@@ -507,12 +508,12 @@ namespace GWMBackend.Api.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Unknown error",
-                        Data = new { },
+                        Value = new { },
                         Error = new { ErrorMsg = ModelState }
                     });
                 }
@@ -520,48 +521,48 @@ namespace GWMBackend.Api.Controllers
 
                 if (string.IsNullOrEmpty(addProduct.Title))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Title is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
 
                 if (string.IsNullOrEmpty(addProduct.Description))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Description is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
 
                 if (addProduct.Inventory == null)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Inventory is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
 
                 if (string.IsNullOrEmpty(addProduct.Price))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Price is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -587,7 +588,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.OK,
                     Message = "New product had added successfully",
-                    Data = new { },
+                    Value = new { },
                     Error = new { }
                 });
 
@@ -600,7 +601,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.InternalServerError,
                     Message = "An internal server error has occurred",
-                    Data = new { },
+                    Value = new { },
                     Error = new { Response = ex.ToString() }
                 });
             }
@@ -613,24 +614,24 @@ namespace GWMBackend.Api.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Unknown error",
-                        Data = new { },
+                        Value = new { },
                         Error = new { ErrorMsg = ModelState }
                     });
                 }
 
                 if (editProduct.Id == 0)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Product ID is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -639,48 +640,48 @@ namespace GWMBackend.Api.Controllers
 
                 if (string.IsNullOrEmpty(editProduct.Title))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Title is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
 
                 if (string.IsNullOrEmpty(editProduct.Description))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Description is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
 
                 if (editProduct.Inventory == null)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Inventory is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
 
                 if (string.IsNullOrEmpty(editProduct.Price))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Price is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -715,7 +716,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.OK,
                     Message = $"Product {product.Id} had edited successfully",
-                    Data = new { },
+                    Value = new { },
                     Error = new { }
                 });
 
@@ -728,7 +729,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.InternalServerError,
                     Message = "An internal server error has occurred",
-                    Data = new { },
+                    Value = new { },
                     Error = new { Response = ex.ToString() }
                 });
             }
@@ -742,23 +743,23 @@ namespace GWMBackend.Api.Controllers
                 //----------------------------------------------------------------------------------Check parameters
                 if (string.IsNullOrEmpty(_singIn.Username))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Username or email is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
                 if (string.IsNullOrEmpty(_singIn.Password))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Password is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -771,35 +772,35 @@ namespace GWMBackend.Api.Controllers
 
                 if (user == null)
                 {
-                    return NotFound(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.NotFound,
                         Message = "The username or password is incorrect.",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
                 if (user.IsActive == false)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "The desired user is disabled.",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
 
                 if (user.RoleId != 0)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "The desired user is not admin.",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -834,9 +835,9 @@ namespace GWMBackend.Api.Controllers
                 return Ok(new
                 {
                     TimeStamp = DateTime.Now,
-                    ResponseCode = HttpStatusCode.NotFound,
+                    ResponseCode = HttpStatusCode.OK,
                     Message = "Login was successful.",
-                    Data = new { data },
+                    Value = new { data },
                     Error = new { }
                 });
                 //----------------------------------------------------------------------------------Find user
@@ -848,7 +849,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.InternalServerError,
                     Message = "An internal server error has occurred",
-                    Data = new { Response = ex.ToString() },
+                    Value = new { Response = ex.ToString() },
                     Error = new { }
                 });
             }
@@ -863,34 +864,34 @@ namespace GWMBackend.Api.Controllers
                 //----------------------------------------------------------------------------------Check parameters
                 if (_refreshTokenRequest is null)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "The received data is not valid",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
                 if (string.IsNullOrEmpty(_refreshTokenRequest.RefreshToken))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Refresh Token amount is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
                 if (string.IsNullOrEmpty(_refreshTokenRequest.Username))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Username is required",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -900,34 +901,34 @@ namespace GWMBackend.Api.Controllers
 
                 if (user == null)
                 {
-                    return NotFound(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.NotFound,
                         Message = "The username or password is incorrect.",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
                 if (user.IsActive == false)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "The desired user is disabled.",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
                 if (user.RefreshToken != _refreshTokenRequest.RefreshToken || (user.RememberMe == false))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Refresh token is invalid.",
-                        Data = new { },
+                        Value = new { },
                         Error = new { }
                     });
                 }
@@ -955,7 +956,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.OK,
                     Message = "The token was successfully retrieved.",
-                    Data = new { data }, 
+                    Value = new { Response = data },
                     Error = new { }
                 });
                 //----------------------------------------------------------------------------------Check Customer Exist
@@ -967,11 +968,10 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.InternalServerError,
                     Message = "An internal server error has occurred",
-                    Data = new { Response = ex.ToString() },
+                    Value = new { Response = ex.ToString() },
                     Error = new { }
                 });
             }
         }
-
     }
 }

@@ -36,25 +36,25 @@ namespace GWMBackend.Api.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Unknown error",
-                        Data = new { },
-                        Error = new { ErrorMsg = ModelState }
+                        Value = new { },
+                        Error = new { }
                     });
                 }
 
                 if (string.IsNullOrEmpty(verifyEmail))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Please enter your email address.",
-                        Data = new { },
-                        Error = new { ErrorMsg = ModelState }
+                        Value = new { },
+                        Error = new { }
                     });
                 }
 
@@ -75,7 +75,7 @@ namespace GWMBackend.Api.Controllers
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.OK,
                         Message = "Your verification code was sent successfully!",
-                        Data = new { res.Id },
+                        Value = new { Response = res.Id },
                         Error = new { }
                     });
                 }
@@ -85,7 +85,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.BadRequest,
                     Message = "The Email is not valid",
-                    Data = new { },
+                    Value = new { },
                     Error = new { }
                 });
 
@@ -97,7 +97,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.InternalServerError,
                     Message = "An internal server error has occurred",
-                    Data = new { },
+                    Value = new { },
                     Error = new { Response = ex.ToString() }
                 });
             }
@@ -110,37 +110,37 @@ namespace GWMBackend.Api.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Unknown error",
-                        Data = new { },
-                        Error = new { ErrorMsg = ModelState }
+                        Value = new { },
+                        Error = new { }
                     });
                 }
 
                 if (verifyCode.Id == 0 || verifyCode.Id == null)
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Please enter customer id.",
-                        Data = new { },
-                        Error = new { ErrorMsg = ModelState }
+                        Value = new { },
+                        Error = new { }
                     });
                 }
 
                 if (string.IsNullOrEmpty(verifyCode.Code))
                 {
-                    return BadRequest(new
+                    return Ok(new
                     {
                         TimeStamp = DateTime.Now,
                         ResponseCode = HttpStatusCode.BadRequest,
                         Message = "Please enter the code we send you.",
-                        Data = new { },
-                        Error = new { ErrorMsg = ModelState }
+                        Value = new { },
+                        Error = new { }
                     });
                 }
 
@@ -194,7 +194,7 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.BadRequest,
                     Message = ("Verification code not valid."),
-                    Data = new { },
+                    Value = new { },
                     Error = new { }
                 });
 
@@ -206,112 +206,11 @@ namespace GWMBackend.Api.Controllers
                     TimeStamp = DateTime.Now,
                     ResponseCode = HttpStatusCode.InternalServerError,
                     Message = "An internal server error has occurred",
-                    Data = new { },
+                    Value = new { },
                     Error = new { Response = ex.ToString() }
                 });
             }
         }
-        //[AllowAnonymous]
-        //[HttpPost("Login")]
-        //public IActionResult Login([FromBody] LoginRequest _singIn)
-        //{
-        //    try
-        //    {
-        //        //----------------------------------------------------------------------------------Check parameters
-        //        if (string.IsNullOrEmpty(_singIn.Username))
-        //        {
-        //            return Ok(new
-        //            {
-        //                TimeStamp = DateTime.Now,
-        //                ResponseCode = HttpStatusCode.BadRequest,
-        //                Message = "نام کاربری یا ایمیل الزامی است",
-        //                Value = new { },
-        //                Error = new { }
-        //            });
-        //        }
-        //        if (string.IsNullOrEmpty(_singIn.Password))
-        //        {
-        //            return Ok(new
-        //            {
-        //                TimeStamp = DateTime.Now,
-        //                ResponseCode = HttpStatusCode.BadRequest,
-        //                Message = "کلمه عبور الزامی است",
-        //                Value = new { },
-        //                Error = new { }
-        //            });
-        //        }
-        //        //----------------------------------------------------------------------------------Check parameters
-
-        //        //----------------------------------------------------------------------------------Find User                
-
-
-        //        User user = _service.User.LoginUser(_singIn.Username, _singIn.Password);
-        //        if (user == null)
-        //        {
-        //            return Ok(new
-        //            {
-        //                TimeStamp = DateTime.Now,
-        //                ResponseCode = HttpStatusCode.NotFound,
-        //                Message = "نام کاربری یا کلمه عبور نادرست است.",
-        //                Value = new { },
-        //                Error = new { }
-        //            });
-        //        }
-        //        if (user.IsActive == false)
-        //        {
-        //            return Ok(new
-        //            {
-        //                TimeStamp = DateTime.Now,
-        //                ResponseCode = HttpStatusCode.MethodNotAllowed,
-        //                Message = "کاربر مورد نظر غیرفعال است.",
-        //                Value = new { },
-        //                Error = new { }
-        //            });
-        //        }
-        //        var token = _service.User.GenToken(user);
-        //        var refreshToken = "";
-        //        if (_singIn.RememberMe)
-        //        {
-        //            Random random = new Random();
-        //            refreshToken = new string(Enumerable.Repeat("abcdefghijklmnopqrstuvwxyz0123456789", 50).Select(s => s[random.Next(s.Length)]).ToArray());
-        //        }
-        //        user.RememberMe = _singIn.RememberMe;
-        //        user.RefreshToken = refreshToken;
-        //        _service.User.EditUser(user);
-
-        //        LoginResponse login = new LoginResponse
-        //        {
-        //            BirthDate = user.BirthDate,
-        //            DisplayName = user.DisplayName,
-        //            Email = user.Email,
-        //            FirstName = user.FirstName,
-        //            Image = user.Image,
-        //            ImageThumb = user.ImageThumb,
-        //            LastName = user.LastName,
-        //            Mobile = user.Mobile,
-        //            NationalCode = user.NationalCode,
-        //            Phone = user.Phone,
-        //            RoleId = user.RoleId,
-        //            Token = token.AccessToken,
-        //            RefreshToken = refreshToken,
-        //            UserName = user.UserName
-        //        };
-        //        return Ok(new
-        //        {
-        //            TimeStamp = DateTime.Now,
-        //            ResponseCode = HttpStatusCode.OK,
-        //            Message = "ورود با موفقیت انجام شد.",
-        //            Value = new { Response = login },
-        //            Error = new { }
-        //        });
-        //        //----------------------------------------------------------------------------------Find User
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Ok(new { TimeStamp = DateTime.Now, ResponseCode = HttpStatusCode.InternalServerError, Message = "خطای داخلی سرور رخ داده است", Value = new { }, Error = new { Response = ex.ToString() } });
-        //    }
-
-        //}
 
     }
 }
