@@ -32,7 +32,7 @@ namespace GWMBackend.Domain.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("data source=195.248.242.221; initial catalog=GWM_DB;User Id=sa;Password=P@$w0Rd!(2024)@gWm;TrustServerCertificate=true;");
+                optionsBuilder.UseSqlServer("data source=185.110.189.115; initial catalog=GWM_DB;User Id=sa;Password=P@$w0Rd!(2024)@gWm;TrustServerCertificate=true;");
             }
         }
 

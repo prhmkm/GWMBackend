@@ -1,3 +1,4 @@
+using Amazon.Runtime.Internal.Endpoints.StandardLibrary;
 using GWMBackend.Api.Hubs;
 using GWMBackend.Core.Model.Base;
 using GWMBackend.Data.Base;
@@ -7,6 +8,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Microsoft.VisualBasic.FileIO;
+using Nancy;
+using NLog.Targets.Wrappers;
 using System.Net;
 using System.Text;
 
@@ -97,6 +101,10 @@ builder.Services.AddCors(opt =>
         .AllowAnyMethod()
         .AllowCredentials();
     });
+    opt.AddDefaultPolicy(builder => builder.SetIsOriginAllowed(option => new Uri(option).Host == "localhost")
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    .AllowCredentials());
 });
 
 var app = builder.Build();
