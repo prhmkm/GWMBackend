@@ -1,4 +1,5 @@
-﻿using GWMBackend.Core.Helpers;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using GWMBackend.Core.Helpers;
 using GWMBackend.Core.Model.Base;
 using GWMBackend.Domain.Models;
 using GWMBackend.Service.Base;
@@ -23,6 +24,48 @@ namespace GWMBackend.Api.Controllers
         {
             _appSettings = appSettings.Value;
             _service = service;
+        }
+
+        [HttpGet("HasOrdered")]
+        public IActionResult HasOrdered() 
+        {
+            try
+            {
+                var userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+                if (_service.order.CheckOrders(Convert.ToInt32(userId)))
+                {
+                    return Ok(new
+                    {
+                        TimeStamp = DateTime.Now,
+                        ResponseCode = HttpStatusCode.BadRequest,
+                        Message = "This user has an ongoing order",
+                        Value = new { },
+                        Error = new { }
+                    });
+                }
+                else
+                {
+                    return Ok(new
+                    {
+                        TimeStamp = DateTime.Now,
+                        ResponseCode = HttpStatusCode.OK,
+                        Message = "This user can submit order",
+                        Value = new { },
+                        Error = new { }
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Ok(new
+                {
+                    TimeStamp = DateTime.Now,
+                    ResponseCode = HttpStatusCode.InternalServerError,
+                    Message = "An internal server error has occurred",
+                    Value = new { },
+                    Error = new { Response = ex.ToString() }
+                });
+            }
         }
 
         [HttpPost("AddOrder")]
