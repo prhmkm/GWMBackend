@@ -113,7 +113,7 @@ namespace GWMBackend.Api.Controllers
                 }
 
 
-                if (order.BucketAmontId > 0)
+                if (order.BucketAmontId == 0)
                 {
                     return Ok(new
                     {
